@@ -20,14 +20,7 @@
                         </div>
                     </div>
                     <div class="page-actions">
-                        <!--<button class="btn btn-ghost" ng-click="cancel()">
-        <span class="icon">←</span>
-        Back
-    </button>
-    <button class="btn btn-primary" ng-click="save()">
 
-        Save
-    </button>-->
                         <div class="btn btn-ghost" dx-button="btn_back"></div>
                         <div class="btn btn-ghost" dx-button="btn_save"></div>
 
@@ -241,15 +234,8 @@
                             </table>
 
                             <div style="margin-top:6px; display:flex; gap:8px;">
-                                <button class="btn btn-ghost" ng-click="addSource()">
-                                    <span class="icon">＋</span>
-                                    Add source
-                                </button>
-                                <button class="btn btn-ghost" ng-click="removeSource(sources.length - 1)"
-                                        ng-disabled="sources.length <= 1">
-                                    <span class="icon">−</span>
-                                    Remove last
-                                </button>
+                                <div dx-button="btn_add_source" class="btn btn-ghost"></div>
+                                <div dx-button="btn_remove_source" class="btn btn-ghost"></div>
                             </div>
                         </div>
                     </div>

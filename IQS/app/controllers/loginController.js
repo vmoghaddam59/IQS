@@ -23,6 +23,15 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
 
     $scope.message = "";
 
+    $scope.btn_login = {
+        text: 'Login',
+        type: 'default',
+        stylingMode: 'contained',
+        onClick: function () {
+            $scope.login();
+        }
+    };
+
     $scope.login = function () {
         $scope.message = null;
         $('form').fadeOut(700);
