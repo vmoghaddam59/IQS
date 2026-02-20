@@ -2,14 +2,14 @@
 app.controller('iqs_audit_hub_controller', ['$location', '$scope', '$q', 'cmsService',
     function ($location, $scope, $q, cmsService) {
 
-        var vm = this;
+     
 
-        vm.loading = false;
+        $scope.loading = false;
 
         // ----------------------------
         // model (snake_case)
         // ----------------------------
-        vm.kpi = {
+        $scope.kpi = {
             overall_coverage_pct: 0,
             active_programs: 0,
             planned_items: 0,
@@ -18,30 +18,30 @@ app.controller('iqs_audit_hub_controller', ['$location', '$scope', '$q', 'cmsSer
             overdue_actions: 0    // phase 2
         };
 
-        vm.programs = [];
+        $scope.programs = [];
 
         // ----------------------------
         // actions (dx buttons)
         // ----------------------------
-        vm.btn_go_programs = {
+        $scope.btn_go_programs = {
             text: 'Programs',
             icon: 'menu',
             type: 'normal',
             onClick: function () { $location.path('iqs/audit/programs'); $scope.$applyAsync(); }
         };
 
-        vm.btn_go_audits = {
+        $scope.btn_go_audits = {
             text: 'Audits',
             icon: 'task',
             type: 'normal',
             onClick: function () { $location.path('/audits'); $scope.$applyAsync(); }
         };
 
-        vm.btn_refresh = {
+        $scope.btn_refresh = {
             text: 'Refresh',
-            icon: 'repeat',
+            icon: 'refresh',
             type: 'default',
-            onClick: function () { vm.refresh(); }
+            onClick: function () { $scope.refresh(); }
         };
 
         // ----------------------------
@@ -85,14 +85,14 @@ app.controller('iqs_audit_hub_controller', ['$location', '$scope', '$q', 'cmsSer
         // ----------------------------
         // grid (Programs overview)
         // ----------------------------
-        vm.open_program = function (row) {
+        $scope.open_program = function (row) {
             if (!row) return;
             $location.path('/audit-program/' + row.id);
             $scope.$applyAsync();
         };
 
-        vm.dx_programs_grid = {
-            bindingOptions: { dataSource: 'vm.programs' },
+        $scope.dx_programs_grid = {
+            bindingOptions: { dataSource: '$scope.programs' },
             showBorders: true,
             columnAutoWidth: true,
             rowAlternationEnabled: true,
@@ -101,7 +101,7 @@ app.controller('iqs_audit_hub_controller', ['$location', '$scope', '$q', 'cmsSer
             noDataText: 'No programs.',
             onRowClick: function (e) {
                 if (!e || !e.data) return;
-                vm.open_program(e.data);
+                $scope.open_program(e.data);
             },
             columns: [
                 { caption: 'Code', dataField: 'code', width: 120 },
@@ -135,7 +135,7 @@ app.controller('iqs_audit_hub_controller', ['$location', '$scope', '$q', 'cmsSer
                             stylingMode: 'text',
                             onClick: function (e) {
                                 if (e && e.event) e.event.stopPropagation();
-                                vm.open_program(options.data);
+                                $scope.open_program(options.data);
                                 $scope.$applyAsync();
                             }
                         }).appendTo(container);
@@ -147,23 +147,23 @@ app.controller('iqs_audit_hub_controller', ['$location', '$scope', '$q', 'cmsSer
         // ----------------------------
         // load
         // ----------------------------
-        vm.refresh = function () {
-            vm.loading = true;
+        $scope.refresh = function () {
+            $scope.loading = true;
 
             // reset
-            vm.kpi.overall_coverage_pct = 0;
-            vm.kpi.active_programs = 0;
-            vm.kpi.planned_items = 0;
-            vm.kpi.created_audits = 0;
+            $scope.kpi.overall_coverage_pct = 0;
+            $scope.kpi.active_programs = 0;
+            $scope.kpi.planned_items = 0;
+            $scope.kpi.created_audits = 0;
 
             cmsService.get_audit_programs().then(function (res) {
                 if (!res || !res.IsSuccess) {
-                    vm.programs = [];
+                    $scope.programs = [];
                     return;
                 }
 
                 var list = res.Data || [];
-                vm.programs = list.map(function (p) {
+                $scope.programs = list.map(function (p) {
                     return {
                         id: p.id,
                         code: p.code,
@@ -181,13 +181,13 @@ app.controller('iqs_audit_hub_controller', ['$location', '$scope', '$q', 'cmsSer
 
                 // active programs count
                 var active = 0;
-                vm.programs.forEach(function (p) {
+                $scope.programs.forEach(function (p) {
                     if (p.status && p.status !== 'Locked') active++;
                 });
-                vm.kpi.active_programs = active;
+                $scope.kpi.active_programs = active;
 
                 // compute per-program stats using existing endpoint
-                var calls = vm.programs.map(function (p) {
+                var calls = $scope.programs.map(function (p) {
                     return cmsService.get_audit_program_items(p.id).then(function (r2) {
                         var items = (r2 && r2.IsSuccess) ? (r2.Data || []) : [];
                         var st = calc_program_stats(items);
@@ -196,20 +196,20 @@ app.controller('iqs_audit_hub_controller', ['$location', '$scope', '$q', 'cmsSer
                         p.created_audits = st.created_audits;
                         p.coverage_pct = st.coverage_pct;
 
-                        vm.kpi.planned_items += safe_int(st.planned_items);
-                        vm.kpi.created_audits += safe_int(st.created_audits);
+                        $scope.kpi.planned_items += safe_int(st.planned_items);
+                        $scope.kpi.created_audits += safe_int(st.created_audits);
                     });
                 });
 
                 return $q.all(calls).then(function () {
-                    if (vm.kpi.planned_items > 0) {
-                        vm.kpi.overall_coverage_pct = Math.round((vm.kpi.created_audits / vm.kpi.planned_items) * 100);
+                    if ($scope.kpi.planned_items > 0) {
+                        $scope.kpi.overall_coverage_pct = Math.round(($scope.kpi.created_audits / $scope.kpi.planned_items) * 100);
                     } else {
-                        vm.kpi.overall_coverage_pct = 0;
+                        $scope.kpi.overall_coverage_pct = 0;
                     }
                 });
             }).finally(function () {
-                vm.loading = false;
+                $scope.loading = false;
                 $scope.$applyAsync();
             });
         };
@@ -224,12 +224,12 @@ app.controller('iqs_audit_hub_controller', ['$location', '$scope', '$q', 'cmsSer
             showScrollbar: 'onHover',
             useNative: true,
             onPullDown: function (options) {
-                vm.refresh();
+                $scope.refresh();
                 options.component.release();
             },
             bindingOptions: { height: 'scroll_content_height' }
         };
 
         // init
-        vm.refresh();
+        $scope.refresh();
     }]);

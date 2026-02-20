@@ -14,7 +14,7 @@
                             Audit Hub
                             <span class="page-title-pill">Overview</span>
 
-                            <span class="tag" style="margin-left:6px;" ng-if="vm.loading">
+                            <span class="tag" style="margin-left:6px;" ng-if="loading">
                                 Loading...
                             </span>
                         </div>
@@ -25,9 +25,9 @@
                     </div>
 
                     <div class="page-actions">
-                        <div dx-button="vm.btn_go_programs"></div>
-                        <div dx-button="vm.btn_go_audits"></div>
-                        <div dx-button="vm.btn_refresh"></div>
+                        <div dx-button="btn_go_programs" class="btn btn-ghost"></div>
+                        <div dx-button="btn_go_audits" class="btn btn-ghost"></div>
+                        <div dx-button="btn_refresh" class="btn btn-primary"></div>
                     </div>
                 </div>
 
@@ -37,36 +37,36 @@
 
                         <div class="pill-kpi kpi-center">
                             <div class="card-subtitle">Overall coverage</div>
-                            <strong class="kpi-value">{{ vm.kpi.overall_coverage_pct }}%</strong>
+                            <strong class="kpi-value">{{ kpi.overall_coverage_pct }}%</strong>
                             <div class="hint" style="margin-top:4px;">
-                                {{ vm.kpi.created_audits }}/{{ vm.kpi.planned_items }} created
+                                {{ kpi.created_audits }}/{{ kpi.planned_items }} created
                             </div>
                         </div>
 
                         <div class="pill-kpi kpi-center">
                             <div class="card-subtitle">Active programs</div>
-                            <strong class="kpi-value">{{ vm.kpi.active_programs }}</strong>
+                            <strong class="kpi-value">{{ kpi.active_programs }}</strong>
                         </div>
 
                         <div class="pill-kpi kpi-center">
                             <div class="card-subtitle">Planned items</div>
-                            <strong class="kpi-value">{{ vm.kpi.planned_items }}</strong>
+                            <strong class="kpi-value">{{ kpi.planned_items }}</strong>
                         </div>
 
                         <div class="pill-kpi kpi-center">
                             <div class="card-subtitle">Audits created</div>
-                            <strong class="kpi-value">{{ vm.kpi.created_audits }}</strong>
+                            <strong class="kpi-value">{{ kpi.created_audits }}</strong>
                         </div>
 
                         <div class="pill-kpi kpi-center">
                             <div class="card-subtitle">Open findings</div>
-                            <strong class="kpi-value">{{ vm.kpi.open_findings }}</strong>
+                            <strong class="kpi-value">{{ kpi.open_findings }}</strong>
                             <div class="hint" style="margin-top:4px;">(phase 2)</div>
                         </div>
 
                         <div class="pill-kpi kpi-center">
                             <div class="card-subtitle">Overdue actions</div>
-                            <strong class="kpi-value">{{ vm.kpi.overdue_actions }}</strong>
+                            <strong class="kpi-value">{{ kpi.overdue_actions }}</strong>
                             <div class="hint" style="margin-top:4px;">(phase 2)</div>
                         </div>
 
@@ -81,12 +81,12 @@
                             <div class="card-subtitle">Quick access + computed coverage per program.</div>
                         </div>
                         <div class="card-header-right">
-                            <span class="tag">Programs: {{ vm.programs.length || 0 }}</span>
+                            <span class="tag">Programs: {{ programs.length || 0 }}</span>
                         </div>
                     </div>
 
                     <div style="padding:0 10px 10px 10px;">
-                        <div dx-data-grid="vm.dx_programs_grid"></div>
+                        <div dx-data-grid="dx_programs_grid"></div>
                     </div>
                 </div>
 
