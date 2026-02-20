@@ -118,7 +118,7 @@ app.controller('iqs_audit_detail_controller', ['$routeParams', '$location',  '$s
 
         $scope.openFinding = function (a) {
             if (!a || !a.id) return;
-            $location.path('/iqs/audit/finding/detail/' + a.id+'/ ' + audit_id + ' / ' + plan_id);
+            $location.path('/iqs/audit/finding/detail/' + a.id + '/' + audit_id + '/' + plan_id);
         };
         // ---------- Save audit ----------
 
@@ -180,7 +180,7 @@ app.controller('iqs_audit_detail_controller', ['$routeParams', '$location',  '$s
             text: 'Back',
             icon: 'chevronleft',
             onClick: function () {
-                $location.path('/iqs/audit/plan/' + plan_id);
+                $location.path('/iqs/audit/plan/detail/' + plan_id);
             }
         };
 

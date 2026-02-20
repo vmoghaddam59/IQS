@@ -1,52 +1,4 @@
-﻿<div class="app-shell">
-    <div class="topbar">
-        <div class="brand">
-            <div class="brand-logo"></div>
-            <div>
-                <div class="brand-text-main">IQS - Safety Management Studio</div>
-                <div class="brand-text-sub">Version Beta 0.5</div>
-            </div>
-        </div>
-        <div class="topbar-right">
-            <div class="pill">
-                <span class="pill-dot"></span>
-                <span>Demo data – not connected to live SMS</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="main-layout">
-        <div class="sidebar">
-            <div class="nav-section-title">Safety core</div>
-            <div class="nav-item" ng-class="{active: shell.isRoute('/hazards')}" ng-click="shell.go('/hazards')">
-                <span class="nav-icon">⚠️</span>
-                <span class="nav-label-main">Hazards</span>
-                <span class="nav-badge">Register</span>
-            </div>
-            <div class="nav-item" ng-class="{active: shell.isRoute('/occurrences')}" ng-click="shell.go('/occurrences')">
-                <span class="nav-icon">📋</span>
-                <span class="nav-label-main">Occurrences</span>
-                <span class="nav-badge">Reports</span>
-            </div>
-
-            <div class="nav-section-title">Change & assurance</div>
-            <div class="nav-item" ng-class="{active: shell.isRoute('/mocs')}" ng-click="shell.go('/mocs')">
-                <span class="nav-icon">♻️</span>
-                <span class="nav-label-main">MOCs</span>
-                <span class="nav-badge">Change</span>
-            </div>
-            <div class="nav-item" ng-class="{active: shell.isRoute('/audit')}" ng-click="shell.go('/audit')">
-                <span class="nav-icon">📝</span>
-                <span class="nav-label-main">Audits</span>
-                <span class="nav-badge">Assurance</span>
-            </div>
-
-            <div class="nav-footer">
-                <div><strong>Demo focus:</strong> hazard log, risk matrix, MOC & audit linkages and hazard-level actions/monitoring.</div>
-            </div>
-        </div>
-
-        <div class="content-area">
+﻿<div class="content-area">
             <div>
                 <div class="page-header">
                     <div class="page-title-block">
@@ -105,12 +57,3 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="footer">
-        <span><strong>Note:</strong> All content is fictitious and for concept/demo only.</span>
-        <span class="link-muted" ng-click="shell.go('/hazards')">Back to hazard register</span>
-    </div>
-</div>
-
-
