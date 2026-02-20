@@ -92,7 +92,7 @@ app.controller('iqs_audit_hub_controller', ['$location', '$scope', '$q', 'cmsSer
         };
 
         $scope.dx_programs_grid = {
-            bindingOptions: { dataSource: '$scope.programs' },
+            bindingOptions: { dataSource: 'programs' },
             showBorders: true,
             columnAutoWidth: true,
             rowAlternationEnabled: true,

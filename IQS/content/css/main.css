@@ -1,4 +1,7 @@
-﻿:root {
+﻿/* =========================
+   IQS THEME (Base)
+   ========================= */
+:root {
     --bg-main: #0f172a;
     --bg-card: #111827;
     --bg-card-alt: #020617;
@@ -43,6 +46,9 @@ body {
     min-height: 100vh;
 }
 
+/* =========================
+   Topbar
+   ========================= */
 .topbar {
     height: 60px;
     display: flex;
@@ -116,10 +122,15 @@ body {
     background: var(--accent-success);
 }
 
+/* =========================
+   Layout / Sidebar / Content
+   ========================= */
 .main-layout {
     flex: 1;
     display: flex;
     min-height: 0;
+    height: calc(100vh - 60px); /* topbar height */
+    overflow: hidden;
 }
 
 .sidebar {
@@ -127,6 +138,11 @@ body {
     padding: 16px 12px 18px;
     border-right: 1px solid rgba(55, 65, 81, 0.7);
     background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(15,23,42,0.96));
+    position: sticky;
+    top: 60px; /* below topbar */
+    align-self: flex-start;
+    height: calc(100vh - 60px);
+    overflow: auto; /* sidebar scroll only if longer */
 }
 
 .nav-section-title {
@@ -196,9 +212,21 @@ body {
 .content-area {
     flex: 1;
     padding: 16px 18px 18px;
-    overflow: visible;
+    /* Fix double scroll: let ONLY dx-scroll-view scroll */
+    overflow: hidden !important;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
 }
 
+#scroll_content {
+    flex: 1;
+    min-height: 0;
+}
+
+/* =========================
+   Header / Buttons
+   ========================= */
 .page-header {
     display: flex;
     align-items: center;
@@ -229,6 +257,50 @@ body {
     border-radius: 999px;
     border: 1px solid rgba(75,85,99,0.9);
     color: var(--text-soft);
+}
+
+
+
+/* Status pill variants (Audit workflow) */
+.pill-status {
+    border-radius: 999px;
+    padding: 2px 8px;
+    border: 1px solid rgba(75,85,99,0.9);
+    background: rgba(31,41,55,0.55);
+    color: #cbd5e1;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+}
+
+.pill-blue {
+    background: rgba(59,130,246,0.18);
+    border-color: rgba(59,130,246,0.65);
+    color: #dbeafe;
+}
+
+.pill-orange {
+    background: rgba(249,115,22,0.18);
+    border-color: rgba(249,115,22,0.60);
+    color: #ffedd5;
+}
+
+.pill-green {
+    background: rgba(34,197,94,0.16);
+    border-color: rgba(34,197,94,0.60);
+    color: #dcfce7;
+}
+
+.pill-red {
+    background: rgba(239,68,68,0.14);
+    border-color: rgba(239,68,68,0.60);
+    color: #fee2e2;
+}
+
+.pill-gray {
+    background: rgba(148,163,184,0.12);
+    border-color: rgba(148,163,184,0.35);
+    color: rgba(203,213,225,0.95);
 }
 
 .page-subtitle {
@@ -290,53 +362,33 @@ body {
         border-color: rgba(148,163,184,0.9);
         color: #e5e7eb;
     }
-
-.form_title {
-    background: radial-gradient(circle at top, rgba(15,23,42,0.98), rgba(2,6,23,0.98));
-    border: 1px solid rgba(31,41,55,0.9);
-    padding: 12px 14px;
-    position: relative;
-    overflow: visible;
-}
-
-
-.card-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr);
-    gap: 14px;
-}
-
+/* =========================
+   Cards / Tables / Sections
+   ========================= */
 .card {
     background: radial-gradient(circle at top, rgba(15,23,42,0.98), rgba(2,6,23,0.98));
     border-radius: var(--radius-xl);
     border: 1px solid rgba(31,41,55,0.9);
-    padding: 12px 14px;
+    padding: 10px 12px;
     position: relative;
     overflow: visible;
 }
 
-.card-header {
+.section-divider {
+    margin: 8px 0 6px;
+    border-top: 1px dashed rgba(55,65,81,0.8);
+}
+
+.section-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin: 12px 0 6px 0;
+    margin-top: 14px;
+    margin-bottom: 6px;
 }
 
-.card-title {
-    font-size: 0.86rem;
-    font-weight: 500;
-}
-
-.card-subtitle {
-    font-size: 0.76rem;
-    color: var(--text-muted);
-}
-
-.card-header-right {
-    font-size: 0.72rem;
-    color: var(--text-soft);
-}
-
+/* table */
 .table-wrapper {
     border-radius: 14px;
     border: 1px solid rgba(31,41,55,0.95);
@@ -378,10 +430,588 @@ tbody tr:nth-child(odd) {
     background: rgba(15,23,42,0.95);
 }
 
-/*tbody tr:hover {
+tbody tr:hover {
     background: rgba(30,64,175,0.24);
     cursor: pointer;
-}*/
+}
+
+/* tags */
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 999px;
+    padding: 1px 7px 2px;
+    font-size: 0.7rem;
+    border: 1px solid rgba(55,65,81,0.9);
+    background: rgba(2,6,23,0.9);
+    color: var(--text-soft);
+}
+
+/* =========================
+   Forms
+   ========================= */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px 8px;
+    /* tighter */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px; /* tighter */
+}
+
+    .form-group.full {
+        grid-column: 1 / -1;
+    }
+
+label {
+    font-size: 0.72rem;
+    color: var(--text-soft);
+}
+
+    label .field-name {
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-weight: 500;
+    }
+
+/* IMPORTANT: keep native inputs styled, but DO NOT touch DevExtreme input here */
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+    background: var(--input-bg);
+    border-radius: 10px;
+    border: 1px solid rgba(31,41,55,0.9);
+    padding: 5px 8px;
+    font-size: 0.8rem;
+    color: var(--text-main);
+    outline: none;
+    transition: border-color 0.14s ease-out;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+    input[readonly],
+    textarea[readonly] {
+        opacity: 0.9;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: rgba(59,130,246,0.9);
+    }
+
+.hint {
+    font-size: 0.75rem;
+    color: var(--text-soft);
+}
+
+    .hint strong {
+        color: var(--text-main);
+    }
+
+/* =========================
+   Extras
+   ========================= */
+.tabs {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 999px;
+    background: rgba(15,23,42,0.95);
+    border: 1px solid rgba(31,41,55,0.9);
+    margin-bottom: 12px;
+}
+
+.tab {
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    border-radius: 999px;
+    cursor: pointer;
+    color: var(--text-soft);
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+    .tab.active {
+        background: radial-gradient(circle at top left, rgba(59,130,246,0.9), rgba(37,99,235,0.9));
+        color: #e5e7eb;
+        border-color: rgba(129,140,248,0.9);
+    }
+
+.action-icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    flex-wrap: nowrap;
+}
+
+/* square icon buttons (custom, not dx) */
+.icon-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(75,85,99,0.9);
+    background: rgba(15,23,42,0.9);
+    color: #e5e7eb;
+    cursor: pointer;
+    user-select: none;
+    line-height: 1;
+    font-size: 15px;
+    transition: all .15s ease-out;
+}
+
+    .icon-btn:hover {
+        background: rgba(30,64,175,0.18);
+        border-color: rgba(59,130,246,0.65);
+    }
+
+    .icon-btn.primary {
+        border-color: rgba(59,130,246,0.85);
+        background: rgba(59,130,246,0.16);
+        color: #dbeafe;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    /* Text action button variant (used for "New Audit") */
+    .icon-btn.text-btn {
+        width: auto;
+        padding: 0 10px;
+        gap: 6px;
+        white-space: nowrap;
+        font-size: 12px;
+        letter-spacing: 0.2px;
+    }
+
+        .icon-btn.text-btn .btn-plus {
+            font-size: 16px;
+            margin-top: -1px;
+        }
+
+        .icon-btn.text-btn .btn-text {
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+
+    .icon-btn.ghost {
+        border-style: dashed;
+        color: rgba(148,163,184,0.95);
+    }
+
+    .icon-btn.danger {
+        border-color: rgba(239,68,68,0.75);
+        background: rgba(239,68,68,0.10);
+        color: #fecaca;
+    }
+
+        .icon-btn.danger:hover {
+            background: rgba(239,68,68,0.16);
+        }
+
+/* KPI grid */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(140px, 1fr));
+    gap: 8px;
+}
+
+/* Responsive */
+@media (max-width: 920px) {
+    .sidebar {
+        display: none;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===================================================================
+   DevExtreme THEME OVERRIDES (keep together)
+   =================================================================== */
+
+/* --- Buttons: match IQS pills --- */
+.dx-button {
+    border-radius: 999px;
+    border: 1px solid rgba(75,85,99,0.9);
+    background: rgba(15,23,42,0.9);
+    color: var(--text-main);
+    box-shadow: none;
+}
+
+    .dx-button .dx-button-content {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .dx-button .dx-button-text,
+    .dx-button .dx-icon {
+        color: var(--text-main);
+    }
+
+    .dx-button.dx-state-hover,
+    .dx-button.dx-state-focused {
+        background: rgba(30,64,175,0.14);
+        border-color: rgba(59,130,246,0.65);
+    }
+
+/* Only this link-like button (do NOT set dx-button-mode-text globally) */
+.more-link-left.dx-button {
+    justify-self: start;
+    align-self: center;
+    width: max-content !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+}
+
+    .more-link-left.dx-button .dx-button-content {
+        display: flex;
+        justify-content: flex-start !important;
+        padding: 0 !important;
+    }
+
+    .more-link-left.dx-button .dx-button-text {
+        color: #93c5fd !important;
+        text-align: left;
+    }
+
+    .more-link-left.dx-button.dx-state-hover .dx-button-text {
+        text-decoration: underline;
+    }
+
+.form-group .more-link-left.dx-button {
+    align-self: flex-start;
+}
+
+/* --- Editors: unify height/padding (THIS fixes "ugly spacing") --- */
+.dx-texteditor {
+    background: var(--input-bg);
+    border: 1px solid rgba(31,41,55,0.9);
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+/* input padding/height */
+.dx-texteditor-input {
+    padding: 6px 10px !important;
+    font-size: 0.82rem;
+    color: var(--text-main);
+}
+
+/* focused */
+.dx-texteditor.dx-state-focused,
+.dx-texteditor.dx-state-active {
+    border-color: rgba(59,130,246,0.85) !important;
+}
+
+/* selectbox/dropdown button */
+.dx-dropdowneditor-button {
+    border-left: 1px solid rgba(31,41,55,0.9);
+}
+
+.dx-dropdowneditor-icon {
+    color: rgba(148,163,184,0.95);
+}
+
+/* datebox icon, etc */
+.dx-datebox .dx-dropdowneditor-icon {
+    opacity: 0.95;
+}
+
+/* --- DataGrid: reduce extra gaps, keep clean --- */
+.dx-datagrid {
+    background: transparent;
+}
+
+    .dx-datagrid .dx-datagrid-headers {
+        background: rgba(15,23,42,0.75);
+        border-bottom: 1px solid rgba(31,41,55,0.9);
+    }
+
+    .dx-datagrid .dx-header-row > td {
+        color: var(--text-soft);
+        font-weight: 500;
+        font-size: 0.75rem;
+    }
+
+    .dx-datagrid .dx-row > td {
+        border-bottom: 1px solid rgba(31,41,55,0.7);
+        color: var(--text-main);
+        font-size: 0.8rem;
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+
+    /* row hover */
+    .dx-datagrid .dx-row.dx-state-hover > td {
+        background: rgba(30,64,175,0.18);
+    }
+
+/* --- Popup --- */
+.dx-popup-content {
+    background-color: #020617;
+    border: 1px solid rgba(31, 41, 55, 0.9);
+    border-radius: 9px;
+}
+
+/* (Optional) if lists got too tight before, DO NOT force item padding globally */
+/* .dx-popup-content .dx-item-content { padding: 4px 0; } */
+
+/* ScrollView container stays clean */
+.dx-scrollview-content {
+    padding-bottom: 10px;
+}
+/* Compact DevExtreme editors */
+.dx-texteditor,
+.dx-selectbox,
+.dx-datebox,
+.dx-numberbox {
+    height: 32px !important;
+}
+
+.dx-texteditor-input {
+    padding: 4px 8px !important;
+    font-size: 0.78rem !important;
+}
+/* DevExtreme TabPanel – minimal theme match */
+.dx-tabpanel .dx-tab {
+    border-radius: 999px;
+    margin: 0 4px;
+}
+
+.dx-tabpanel .dx-tabs {
+    background: rgba(15,23,42,0.9);
+    border: 1px solid rgba(31,41,55,0.9);
+    border-radius: 999px;
+    padding: 3px;
+}
+
+.dx-tabpanel .dx-tab.dx-tab-selected {
+    background: rgba(59,130,246,0.18);
+    border: 1px solid rgba(59,130,246,0.55);
+}
+
+.dx-tabpanel .dx-multiview-wrapper {
+    padding-top: 10px;
+}
+/* ===== Popup refs buttons (clean & compact) ===== */
+.refs-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+    .refs-actions .dx-button {
+        width: auto !important; /* مهم‌ترین */
+        min-width: 140px; /* شیک و کنترل‌شده */
+    }
+
+        .refs-actions .dx-button .dx-button-content {
+            padding: 8px 14px !important;
+            font-size: 0.82rem !important;
+        }
+
+        /* Close = ghost */
+        .refs-actions .dx-button.dx-button-mode-contained {
+            border-radius: 999px;
+        }
+
+        .refs-actions .dx-button.dx-state-hover {
+            background: rgba(30,64,175,0.14) !important;
+            border-color: rgba(59,130,246,0.65) !important;
+        }
+
+.pill-status {
+    padding: 3px 10px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 6px;
+    color: #fff;
+}
+
+.pill-gray {
+    background: #6b7280;
+}
+/* Draft */
+.pill-blue {
+    background: #3b82f6;
+}
+/* Scheduled */
+.pill-orange {
+    background: #f59e0b;
+}
+/* InProgress */
+.pill-green {
+    background: #10b981;
+}
+/* Closed */
+.pill-red {
+    background: #ef4444;
+}
+/* Cancelled */
+
+
+/* =========================
+   Program -> Plan -> Audits (nested list)
+   ========================= */
+.plan-audits-wrap {
+    margin-left: 10px; /* visual indentation */
+    padding: 8px 10px 6px 10px;
+    border-left: 2px solid rgba(59,130,246,0.35);
+    background: rgba(2,6,23,0.35);
+    border-radius: 14px;
+}
+
+.plan-audits-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.plan-audits-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.plan-audits-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* keep New Audit compact and consistent with the dark UI */
+.plan-audits-new .dx-button {
+    border-radius: 999px;
+    background: rgba(59,130,246,0.10);
+    border: 1px solid rgba(59,130,246,0.35);
+}
+
+    .plan-audits-new .dx-button .dx-button-text {
+        font-weight: 600;
+    }
+
+.plan-audits-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+}
+
+.plan-audits-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+
+/* ---- tiny chips used inside DevExtreme grid cells ---- */
+.mini-chip {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 999px;
+    font-size: 12px;
+    line-height: 18px;
+    margin-right: 6px;
+    background: rgba(255,255,255,0.02);
+    color: var(--text-dim);
+}
+
+
+/* Tighten master-detail cell padding (minimal override) */
+.dx-datagrid .dx-master-detail-row > td {
+    padding: 8px 10px !important;
+}
+
+
+.popup-btn.danger {
+    border-color: rgba(239,68,68,0.75);
+    background: rgba(239,68,68,0.10);
+    color: #fecaca;
+}
+
+
+.popup-btn.primary {
+    border-color: rgba(59,130,246,0.85);
+    background: rgba(59,130,246,0.16);
+    color: #dbeafe;
+}
+
+
+/* Control center status pills */
+.pill-btn {
+    border: 1px solid var(--stroke);
+    background: rgba(255,255,255,.06);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+    .pill-btn:hover {
+        background: rgba(255,255,255,.10);
+    }
+
+    .pill-btn.is-active {
+        background: rgba(34,211,238,.22);
+        border-color: rgba(34,211,238,.45);
+    }
+
+.pill-count {
+    min-width: 28px;
+    height: 22px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.16);
+    font-weight: 700;
+}
+
+.status-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.06);
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.dx-item-content {
+    /*border-bottom: 1px solid rgba(31, 41, 55, 0.9);*/
+    padding: 5px 0px 5px 0px
+}
+
 
 .tag {
     display: inline-flex;
@@ -416,6 +1046,7 @@ tbody tr:nth-child(odd) {
 .tag-pill-blue {
     background: var(--accent);
 }
+
 
 .badge-risk-high {
     background: var(--accent-danger-soft);
@@ -492,68 +1123,45 @@ tbody tr:nth-child(odd) {
     background: #dbeafe;
 }
 
-.form-grid {
+
+.card-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px 12px;
+    grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr);
+    gap: 14px;
 }
 
-.form-group {
+.card {
+    background: radial-gradient(circle at top, rgba(15,23,42,0.98), rgba(2,6,23,0.98));
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(31,41,55,0.9);
+    padding: 12px 14px;
+    position: relative;
+    overflow: visible;
+}
+
+.card-header {
     display: flex;
-    flex-direction: column;
-    gap: 3px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
 }
 
-    .form-group.full {
-        grid-column: 1 / -1;
-    }
+.card-title {
+    font-size: 0.86rem;
+    font-weight: 500;
+}
 
-label {
+.card-subtitle {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+}
+
+.card-header-right {
     font-size: 0.72rem;
     color: var(--text-soft);
 }
 
-    label .field-name {
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        font-weight: 500;
-    }
 
-/*.dx-texteditor-input,
-input[type="text"],
-input[type="date"],
-select,
-textarea {
-    background: var(--input-bg);
-    border-radius: 10px;
-    border: 1px solid rgba(31,41,55,0.9);
-    padding: 5px 0px 5px 8px;
-    font-size: 0.8rem;
-    color: var(--text-main);
-    outline: none;
-    transition: border-color 0.14s ease-out;
-    width: 100%
-}*/
-
-textarea {
-    resize: vertical;
-    min-height: 60px;
-}
-
-    input[readonly],
-    textarea[readonly] {
-        opacity: 0.9;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-        border-color: rgba(59,130,246,0.9);
-    }
-
-select {
-    padding-right: 22px;
-}
 
 .section-divider {
     margin: 10px 0 8px;
@@ -792,178 +1400,4 @@ select {
     background: rgba(255, 255, 255, .06);
     font-weight: 700;
     font-size: 12px
-}
-
-@media (max-width: 1100px) {
-    .card-grid {
-        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
-    }
-
-    .risk-matrix-container {
-        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr);
-    }
-}
-
-@media (max-width: 920px) {
-    .sidebar {
-        display: none;
-    }
-
-    .card-grid {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .risk-matrix-container {
-        grid-template-columns: minmax(0, 1fr);
-    }
-}
-
-/* Control center status pills */
-.pill-btn {
-    border: 1px solid var(--stroke);
-    background: rgba(255,255,255,.06);
-    color: var(--text);
-    padding: 10px 12px;
-    border-radius: 999px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-}
-
-    .pill-btn:hover {
-        background: rgba(255,255,255,.10);
-    }
-
-    .pill-btn.is-active {
-        background: rgba(34,211,238,.22);
-        border-color: rgba(34,211,238,.45);
-    }
-
-.pill-count {
-    min-width: 28px;
-    height: 22px;
-    border-radius: 999px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 8px;
-    background: rgba(255,255,255,.12);
-    border: 1px solid rgba(255,255,255,.16);
-    font-weight: 700;
-}
-
-.status-chip {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 10px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,.14);
-    background: rgba(255,255,255,.06);
-    font-weight: 700;
-    font-size: 12px;
-}
-
-.dx-item-content {
-    /*border-bottom: 1px solid rgba(31, 41, 55, 0.9);*/
-    padding: 5px 0px 5px 0px
-}
-/* Fix double scroll: let ONLY dx-scroll-view scroll */
-.content-area {
-    overflow: hidden !important;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-#scroll_content {
-    flex: 1;
-    min-height: 0;
-}
-
-.meeting-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 4fr; /* Venue بزرگتر */
-    gap: 6px 8px;
-    align-items: end;
-}
-
-@media (max-width: 920px) {
-    .meeting-grid {
-        grid-template-columns: 1fr; /* موبایل ستونی */
-    }
-}
-
-.section-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 12px 0 6px 0;
-}
-
-.action-icons {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 8px;
-    flex-wrap: nowrap; /* کنار هم بمونن */
-}
-
-/* base square button */
-.icon-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 10px; /* مربع نرم */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(75,85,99,0.9);
-    background: rgba(15,23,42,0.9);
-    color: #e5e7eb;
-    cursor: pointer;
-    user-select: none;
-    line-height: 1;
-    font-size: 15px;
-    transition: all .15s ease-out;
-}
-
-    .icon-btn:hover {
-        background: rgba(30,64,175,0.18);
-        border-color: rgba(59,130,246,0.65);
-    }
-
-    .icon-btn.primary {
-        border-color: rgba(59,130,246,0.85);
-        background: rgba(59,130,246,0.16);
-        color: #dbeafe;
-        font-size: 18px;
-        font-weight: 700;
-    }
-
-    .icon-btn.ghost {
-        border-style: dashed;
-        color: rgba(148,163,184,0.95);
-    }
-
-    .icon-btn.danger {
-        border-color: rgba(239,68,68,0.75);
-        background: rgba(239,68,68,0.10);
-        color: #fecaca;
-    }
-
-        .icon-btn.danger:hover {
-            background: rgba(239,68,68,0.16);
-        }
-
-.popup-btn.danger {
-    border-color: rgba(239,68,68,0.75);
-    background: rgba(239,68,68,0.10);
-    color: #fecaca;
-}
-
-
-.popup-btn.primary {
-    border-color: rgba(59,130,246,0.85);
-    background: rgba(59,130,246,0.16);
-    color: #dbeafe;
 }
