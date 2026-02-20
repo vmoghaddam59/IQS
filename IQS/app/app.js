@@ -16,10 +16,10 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/iqs_hazard_list.html"
     });
 
-     $routeProvider.when("/iqs/hazard/detail/:id", {
-         controller: "iqs_hazard_detail_controller",
-         templateUrl: "/app/views/iqs_hazard_detail.html"
-     });
+    $routeProvider.when("/iqs/hazard/detail/:id", {
+        controller: "iqs_hazard_detail_controller",
+        templateUrl: "/app/views/iqs_hazard_detail.html"
+    });
 
     $routeProvider.when("/iqs/audit/list", {
         controller: "iqs_audit_list_controller",
@@ -30,7 +30,11 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/iqs_audit_plan_detail.html"
     });
 
-    $routeProvider.when("/iqs/audit/detail/:id/:plan_id", {
+    $routeProvider.when("/iqs/audit/detail/:id", {
+        controller: "iqs_audit_detail_controller",
+        templateUrl: "/app/views/iqs_audit_detail.html"
+    });
+    $routeProvider.when("/iqs/audit/create/:plan_id", {
         controller: "iqs_audit_detail_controller",
         templateUrl: "/app/views/iqs_audit_detail.html"
     });
@@ -38,6 +42,21 @@ app.config(function ($routeProvider) {
         controller: "iqs_audit_finding_controller",
         templateUrl: "/app/views/iqs_audit_finding.html"
     });
+
+    $routeProvider.when("/iqs/audit/program/:program_id", {
+        controller: "iqs_audit_program_controller",
+        templateUrl: "/app/views/iqs_audit_program.html"
+    });
+
+    $routeProvider.when("/iqs/audit/hub", {
+        controller: "iqs_audit_hub_controller",
+        templateUrl: "/app/views/iqs_audit_hub.html"
+    });
+    $routeProvider.when("/iqs/audit/programs", {
+        controller: "iqs_audit_program_list_controller",
+        templateUrl: "/app/views/iqs_audit_program_list.html"
+    });
+
 
     $routeProvider.when("/iqs/occurrence/list", {
         controller: "iqs_occurrence_list_controller",

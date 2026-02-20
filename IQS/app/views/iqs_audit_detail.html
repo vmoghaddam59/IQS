@@ -1,193 +1,250 @@
-﻿<div class="content-area">
+﻿<div class="app-shell">
+    
+    <div class="main-layout">
+        
 
-            <div id="scroll_content" class="scroll-flex" dx-scroll-view="scroll_content" >
+        <div class="content-area">
+            <div id="scroll_content" class="scroll-flex" dx-scroll-view="scroll_content">
+
+                <!-- Header -->
                 <div class="page-header">
                     <div class="page-title-block">
                         <div class="page-title">
-                            Audit – {{ item.auditNo }}
-                            <span class="page-title-pill">Internal audit</span>
+                            Audit – {{ entity.code || 'NEW' }}
+                            <!-- Status pill (colored) -->
+                            <span class="page-title-pill" ng-class="getStatusClass(entity.status)">
+                                {{ getStatusText(entity.status) }}
+                            </span>
+
+
+                            <span class="page-title-pill">{{ entity.audit_method || 'Process' }}</span>
+                            <span class="page-title-pill">{{ entity.execution_mode || 'Onsite' }}</span>
                         </div>
                         <div class="page-subtitle">
-                            Conceptual view showing scope, standards_refrences, findings, corrective actions and linked hazards.
+                            {{ entity.title || 'Audit detail form (scope, scheduling, references, findings & actions).' }}
                         </div>
                     </div>
+
                     <div class="page-actions">
-                        <div dx-button="btn_back" class="btn btn-ghost">
-                            <span class="icon">←</span>
-                            Back
-                        </div>
-                        <div dx-button="btn_save" class="btn btn-primary">
-                            <span class="icon">＋</span>
-                            Save
-                        </div>
+                        <div dx-button="btn_back" class="btn btn-ghost"></div>
+                        <div dx-button="btn_save" class="btn btn-primary"></div>
+
+                        <!-- Workflow -->
+                        <div dx-button="btn_approve" class="btn btn-ghost"></div>
+                        <div dx-button="btn_start" class="btn btn-ghost"></div>
+                        <div dx-button="btn_close" class="btn btn-ghost"></div>
+                        <div dx-button="btn_cancel" class="btn btn-ghost"></div>
                     </div>
+
                 </div>
 
+                <!-- Main card -->
                 <div class="card">
-                    <div class="form-grid">
-                        <div class="form-group full">
-                            <label><span class="field-name">Title</span></label>
-                            <div class="input" dx-text-box="txt_title" dx-validator="{validationGroup:'auditsave',  validationRules: [{ type: 'required' }]}"></div>
+
+                    <!-- ✅ Tabs (Option B) -->
+                    <div dx-tab-panel="dx_audit_tabs">
+
+                        <!-- ================= TAB: Overview ================= -->
+                        <div data-options="dxTemplate: { name: 'overview' }">
+
+                            <div class="form-grid">
+
+                                <div class="form-group full">
+                                    <label><span class="field-name">Title</span></label>
+                                    <div class="input"
+                                         dx-text-box="txt_title"
+                                         dx-validator="{validationGroup:'auditsave', validationRules:[{ type:'required' }]}"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Code</span></label>
+                                    <div class="input" dx-text-box="txt_code"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Type</span></label>
+                                    <div class="input" dx-select-box="sb_types"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Status</span></label>
+                                    <div class="input" dx-select-box="sb_status" title="Status changes via workflow buttons."></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Scheduling Type</span></label>
+                                    <div class="input" dx-select-box="sb_scheduling_type"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Audit Method</span></label>
+                                    <div class="input" dx-select-box="sb_audit_method"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Execution Mode</span></label>
+                                    <div class="input" dx-select-box="sb_execution_mode"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Audit Date</span></label>
+                                    <div class="input" dx-date-box="dt_audit_date"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Scheduled Start</span></label>
+                                    <div class="input" dx-date-box="dt_scheduled_start"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Scheduled End</span></label>
+                                    <div class="input" dx-date-box="dt_scheduled_end"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Scope</span></label>
+                                    <div class="input" dx-text-box="txt_scope"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Area</span></label>
+                                    <div class="input" dx-text-box="txt_area"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Department</span></label>
+                                    <div class="input" dx-select-box="sb_departments"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Location</span></label>
+                                    <div class="input" dx-text-box="txt_audit_location"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Auditee</span></label>
+                                    <div class="input" dx-select-box="sb_auditees"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="field-name">Auditor</span></label>
+                                    <div class="input" dx-select-box="sb_auditors"></div>
+                                </div>
+
+                                <div class="form-group full">
+                                    <label><span class="field-name">Remark</span></label>
+                                    <div class="input" dx-text-area="txt_remark"></div>
+                                </div>
+
+                            </div>
+
+                            <div class="section-divider"></div>
+
+                            <!-- References -->
+                            <div class="section-head">
+                                <div class="page-subtitle">References</div>
+                                <div style="display:flex; gap:8px; align-items:center;">
+                                    <!-- ✅ مهم: آبجکت inline نداریم -->
+                                    <div dx-button="btn_manage_refs"></div>
+                                </div>
+                            </div>
+
+                            <div class="hint" style="margin:6px 0 10px;" ng-if="entity.id < 0">
+                                First save the audit to add references.
+                            </div>
+
+                            <div class="card" style="background:none; border:none; padding:0;">
+                                <div dx-data-grid="dx_refs_grid"></div>
+                            </div>
+
+                            <!-- Popup: Audit References -->
+                            <div dx-popup="dx_refs_popup">
+                                <div class="form-grid" style="padding:10px;">
+                                    <div class="form-group full">
+                                        <label><span class="field-name">Document</span></label>
+                                        <div class="input" dx-select-box="dx_ref_doc_select"></div>
+                                    </div>
+
+                                    <div class="form-group full">
+                                        <label><span class="field-name">Clause (optional)</span></label>
+                                        <div class="input" dx-select-box="dx_ref_clause_select"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label><span class="field-name">Weight</span></label>
+                                        <div class="input" dx-number-box="dx_ref_weight"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label><span class="field-name">Note</span></label>
+                                        <div class="input" dx-text-box="dx_ref_note"></div>
+                                    </div>
+
+                                    <div class="form-group full" style="display:flex; gap:10px; justify-content:flex-end; padding-top:10px;">
+                                        <div dx-button="dx_close_refs_btn"></div>
+                                        <div dx-button="dx_add_ref_btn"></div>
+                                    </div>
+
+                                    <div class="form-group full" style="padding-top:10px;">
+                                        <div dx-data-grid="dx_refs_grid"></div>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
-                        <div class="form-group">
-                            <label><span class="field-name">Code</span></label>
-                            <div class="input" dx-text-box="txt_code"></div>
 
-                        </div>
-                        <div class="form-group">
-                            <label><span class="field-name">Type</span></label>
-                            <div class="input" dx-select-box="sb_types"></div>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label><span class="field-name">Audit Date</span></label>
-                            <div class="input" dx-date-box="dt_audit_date"></div>
-
-                        </div>
-                        <div class="form-group">
-                            <label><span class="field-name">Scope</span></label>
-                            <div class="input" dx-text-box="txt_scope"></div>
-
-                        </div>
-                        <div class="form-group">
-                            <label><span class="field-name">Area</span></label>
-                            <div class="input" dx-text-box="txt_area"></div>
-
-                        </div>
-                        <div class="form-group">
-                            <label><span class="field-name">Location</span></label>
-                            <div dx-select-box="sb_locations"></div>
-
-                        </div>
-                        <div class="form-group">
-                            <label><span class="field-name">Auditee</span></label>
-                            <div dx-select-box="sb_auditees"></div>
-
-                        </div>
-                        <div class="form-group">
-                            <label><span class="field-name">Auditor</span></label>
-                            <div dx-select-box="sb_auditors"></div>
-
+                        <!-- ================= TAB: Findings ================= -->
+                        <div data-options="dxTemplate: { name: 'findings' }">
+                            <div class="section-head">
+                                <div class="page-subtitle">Findings</div>
+                                <div dx-button="btn_finding_add" class="btn btn-primary"></div>
+                            </div>
+                            <div dx-data-grid="dg_findings" class="dx-grid"></div>
                         </div>
 
-                        <div class="form-group full">
-                            <label><span class="field-name">Standards/ Refrences</span></label>
-                            <div class="input" dx-text-area="txt_standards_refrences"></div>
-
+                        <!-- ================= TAB: Actions ================= -->
+                        <div data-options="dxTemplate: { name: 'actions' }">
+                            <div class="section-head">
+                                <div class="page-subtitle">Corrective actions &amp; monitoring</div>
+                            </div>
+                            <div dx-data-grid="dg_actions" class="dx-grid"></div>
                         </div>
 
-                        <div class="form-group full">
-                            <label><span class="field-name">Remark</span></label>
-                            <div class="input" dx-text-area="txt_remark"></div>
+                        <!-- ================= TAB: Hazards ================= -->
+                        <div data-options="dxTemplate: { name: 'hazards' }">
+                            <div class="card" style="background:none; border:none; padding:0;">
+                                <div class="page-subtitle" style="margin-bottom:6px;">Linked hazards</div>
+                                <p class="hint" style="margin:0 0 6px;">
+                                    Hazards that are either the subject of the audit or are directly affected by its findings.
+                                </p>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Hazard code</th>
+                                            <th>Title</th>
+                                            <th>Risk (initial → residual)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="h in hazards">
+                                            <td>{{ h.code }}</td>
+                                            <td>{{ h.title }}</td>
+                                            <td>{{ h.initialRisk }} → {{ h.residualRisk }}</td>
+                                        </tr>
+                                        <tr ng-if="!hazards || !hazards.length">
+                                            <td colspan="3" style="font-size:0.85rem; color:var(--text-muted);">
+                                                No hazards linked.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
 
+                    </div><!-- /dx-tab-panel -->
 
-                    <div class="section-divider"></div>
-                    <div class="section-head">
-                        <div class="page-subtitle">Findings</div>
-                        <div dx-button="btn_finding_add" class="btn btn-primary"></div>
-                    </div>
-
-                    <div class="card" style="background:none; border:none; padding:0;">
-                        <!--<div class="page-subtitle" style="margin-bottom:6px;">Findings</div>
-                        <div dx-button="btn_finging_add" class="btn btn-primary"></div>-->
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Title</th>
-                                    <th>Level</th>
-                                    <th>Closure Deadline</th>
-                                    <th>Closure Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="f in findings">
-                                    <td>{{ f.code }}</td>
-                                    <td>{{ f.title }}</td>
-                                    <td>{{ f.level }}</td>
-                                    <td>{{ f.closure_deadline | date:'yyyy-MM-dd' }}</td>
-                                    <td>{{ f.closure_auditor_date | date:'yyyy-MM-dd' }}</td>
-                                </tr>
-                                <tr ng-if="!findings || !findings.length">
-                                    <td colspan="5" style="font-size:0.85rem; color:var(--text-muted);">
-                                        No findings.
-                                    </td>
-                                </tr>
-                            </tbody>
-
-                        </table>
-                    </div>
-
-                    <div class="card" style="background:none; border:none; padding:0; margin-top:10px;">
-                        <div class="page-subtitle" style="margin-bottom:6px;">Corrective actions &amp; monitoring</div>
-                        <!--<p class="hint" style="margin:0 0 6px;">
-            For each finding, this section summarises the agreed corrective action, the responsible owner,
-            target date and how the effectiveness will be monitored.
-        </p>-->
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Finding no</th>
-                                    <th>Corrective action</th>
-                                    <th>Owner</th>
-                                    <th>Target date</th>
-                                    <th>Follow-up / monitoring</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="a in actions">
-                                    <td>{{ a.finding_id }}</td>
-                                    <td>{{ a.action_title }}</td>
-                                    <td>{{ a.responsible_manager_name }}</td>
-                                    <td>{{ a.request_implementation_date | date:'yyyy-MM-dd' }}</td>
-                                    <td>
-                                        <div><strong>Approved:</strong> {{ a.is_approved }}</div>
-                                        <div ng-if="a.follow_up1_date"><strong>FU1:</strong> {{ a.follow_up1_date | date:'yyyy-MM-dd' }}</div>
-                                        <div ng-if="a.follow_up2_date"><strong>FU2:</strong> {{ a.follow_up2_date | date:'yyyy-MM-dd' }}</div>
-                                    </td>
-                                </tr>
-                                <tr ng-if="!actions || !actions.length">
-                                    <td colspan="5" style="font-size:0.85rem; color:var(--text-muted);">
-                                        No corrective actions.
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="section-divider"></div>
-
-                    <div class="card" style="background:none; border:none; padding:0;">
-                        <div class="page-subtitle" style="margin-bottom:6px;">Linked hazards</div>
-                        <p class="hint" style="margin:0 0 6px;">
-                            Hazards that are either the subject of the audit or are directly affected by its findings.
-                        </p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Hazard code</th>
-                                    <th>Title</th>
-                                    <th>Risk (initial → residual)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="h in hazards">
-                                    <td>{{ h.code }}</td>
-                                    <td>{{ h.title }}</td>
-                                    <td>{{ h.initialRisk }} → {{ h.residualRisk }}</td>
-                                </tr>
-                                <tr ng-if="!hazards.length">
-                                    <td colspan="3" style="font-size:0.85rem; color:var(--text-muted);">
-                                        No hazards linked in this demo.
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+                </div><!-- /card -->
+            </div><!-- /scroll -->
+        </div><!-- /content-area -->
+    </div><!-- /main-layout -->
+</div>

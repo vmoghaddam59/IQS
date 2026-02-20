@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IQS", "IQS\IQS.csproj", "{E445A328-7D86-4E5C-87DD-D290EF5ADDFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiCMS", "ApiIQS\ApiCMS.csproj", "{9D10C350-9786-4454-8184-A80380F65F90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiCMS", "ApiCMS\ApiCMS.csproj", "{9D10C350-9786-4454-8184-A80380F65F90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

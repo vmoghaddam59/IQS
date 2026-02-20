@@ -1,53 +1,42 @@
-﻿<div class="content-area">
-            <div>
+﻿<!-- Audits List -->
+<div class="app-shell" ng-controller="iqs_audit_list_controller as vm">
+
+    
+
+    <div class="main-layout">
+
+        <!-- Content -->
+        <div class="content-area">
+            <div id="scroll_content" class="scroll-flex" dx-scroll-view="scroll_content">
+
+
+                <!-- Header -->
                 <div class="page-header">
                     <div class="page-title-block">
                         <div class="page-title">
                             Audits
-                            <span class="page-title-pill">Safety / Quality assurance</span>
+                            <span class="page-title-pill">Execute</span>
+                            <span class="tag" style="margin-left:6px;" ng-if="vm.loading">Loading...</span>
                         </div>
-                        <div class="page-subtitle">
-                            Internal audit view to show how findings and hazards are tied together, and how audit results
-                            feed into the hazard register.
-                        </div>
+                        <div class="page-subtitle">Search, filter and open audits.</div>
+
                     </div>
+
                     <div class="page-actions">
-                        <div dx-button="btn_refresh" class="btn btn-ghost"></div>
-                        <div dx-button="btn_new" class="btn btn-primary"></div>
+                        <div dx-button="vm.btn_refresh"></div>
+                        <div dx-button="vm.btn_new_audit"></div>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Internal audits (demo)</div>
-                            <div class="card-subtitle">
-                                For this concept, only a very small subset of audit information is shown.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Title</th>
-                                    <th>Dept</th>
-                                    <th>Period</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="a in items" ng-click="open(a)">
-                                    <td>{{ a.auditNo }}</td>
-                                    <td>{{ a.title }}</td>
-                                    <td>{{ a.dept }}</td>
-                                    <td>{{ a.startDate }} → {{ a.endDate }}</td>
-                                    <td>{{ a.status }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- Grid -->
+                <div class="card" style="padding:0;">
+                    <div style="padding:10px;">
+                        <div dx-data-grid="vm.dx_audits_grid"></div>
                     </div>
                 </div>
+
             </div>
         </div>
+
+    </div>
+</div>

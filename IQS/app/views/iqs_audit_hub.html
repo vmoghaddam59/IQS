@@ -1,0 +1,111 @@
+﻿<!-- Audit Hub -->
+<div class="app-shell" ng-controller="iqs_audit_hub_controller as vm">
+
+    <div class="main-layout">
+
+       
+        <div class="content-area">
+            <div id="scroll_content" class="scroll-flex" dx-scroll-view="scroll_content">
+
+                <!-- Header -->
+                <div class="page-header">
+                    <div class="page-title-block">
+                        <div class="page-title">
+                            Audit Hub
+                            <span class="page-title-pill">Overview</span>
+
+                            <span class="tag" style="margin-left:6px;" ng-if="vm.loading">
+                                Loading...
+                            </span>
+                        </div>
+
+                        <div class="page-subtitle">
+                            Quick view of programs, coverage and actions.
+                        </div>
+                    </div>
+
+                    <div class="page-actions">
+                        <div dx-button="vm.btn_go_programs"></div>
+                        <div dx-button="vm.btn_go_audits"></div>
+                        <div dx-button="vm.btn_refresh"></div>
+                    </div>
+                </div>
+
+                <!-- KPI strip -->
+                <div class="card" style="padding:10px 12px;">
+                    <div class="kpi-grid">
+
+                        <div class="pill-kpi kpi-center">
+                            <div class="card-subtitle">Overall coverage</div>
+                            <strong class="kpi-value">{{ vm.kpi.overall_coverage_pct }}%</strong>
+                            <div class="hint" style="margin-top:4px;">
+                                {{ vm.kpi.created_audits }}/{{ vm.kpi.planned_items }} created
+                            </div>
+                        </div>
+
+                        <div class="pill-kpi kpi-center">
+                            <div class="card-subtitle">Active programs</div>
+                            <strong class="kpi-value">{{ vm.kpi.active_programs }}</strong>
+                        </div>
+
+                        <div class="pill-kpi kpi-center">
+                            <div class="card-subtitle">Planned items</div>
+                            <strong class="kpi-value">{{ vm.kpi.planned_items }}</strong>
+                        </div>
+
+                        <div class="pill-kpi kpi-center">
+                            <div class="card-subtitle">Audits created</div>
+                            <strong class="kpi-value">{{ vm.kpi.created_audits }}</strong>
+                        </div>
+
+                        <div class="pill-kpi kpi-center">
+                            <div class="card-subtitle">Open findings</div>
+                            <strong class="kpi-value">{{ vm.kpi.open_findings }}</strong>
+                            <div class="hint" style="margin-top:4px;">(phase 2)</div>
+                        </div>
+
+                        <div class="pill-kpi kpi-center">
+                            <div class="card-subtitle">Overdue actions</div>
+                            <strong class="kpi-value">{{ vm.kpi.overdue_actions }}</strong>
+                            <div class="hint" style="margin-top:4px;">(phase 2)</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Programs overview -->
+                <div class="card" style="margin-top:12px;">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Programs overview</div>
+                            <div class="card-subtitle">Quick access + computed coverage per program.</div>
+                        </div>
+                        <div class="card-header-right">
+                            <span class="tag">Programs: {{ vm.programs.length || 0 }}</span>
+                        </div>
+                    </div>
+
+                    <div style="padding:0 10px 10px 10px;">
+                        <div dx-data-grid="vm.dx_programs_grid"></div>
+                    </div>
+                </div>
+
+                <!-- Optional: small operational panel (placeholder, phase 2) -->
+                <div class="card" style="margin-top:12px;">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Today panel</div>
+                            <div class="card-subtitle">Next: upcoming audits / overdue items / CAP verification.</div>
+                        </div>
+                    </div>
+
+                    <div style="padding:10px 12px;" class="hint">
+                        Phase 2: وقتی endpoint لیست Auditها و Due-date Actionها رو اضافه کنیم، اینجا Operational panel رو کامل می‌کنیم.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

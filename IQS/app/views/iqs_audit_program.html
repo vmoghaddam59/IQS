@@ -1,0 +1,386 @@
+<!-- Audit Program Detail -->
+<div class="app-shell" ng-controller="iqs_audit_program_controller as vm">
+
+   
+    <div class="main-layout">
+
+        
+        <!-- Content -->
+        <div class="content-area">
+            <div id="scroll_content" class="scroll-flex" dx-scroll-view="scroll_content">
+
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-title-block">
+                        <div class="page-title">
+                            {{ vm.program.title || 'Audit Program' }}
+                            <span class="page-title-pill">{{ vm.program.typeTitle || '—' }}</span>
+
+                            <span class="tag"
+                                  ng-class="{
+                                      'badge-status-open': vm.program.status==='Draft',
+                                      'badge-status-in-progress': vm.program.status==='Approved',
+                                      'badge-status-closed': vm.program.status==='Locked'
+                                  }"
+                                  style="margin-left:6px;">
+                                {{ vm.program.status || '—' }}
+                            </span>
+                        </div>
+
+                        <div class="page-subtitle">
+                            Period: {{ vm.program.periodFrom | date:'yyyy-MM-dd' }} → {{ vm.program.periodTo | date:'yyyy-MM-dd' }}
+                            <span style="margin:0 8px; color:var(--text-soft);">•</span>
+                            Owner: {{ vm.program.ownerName || '—' }}
+                            <span style="margin:0 8px; color:var(--text-soft);">•</span>
+                            Updated: {{ vm.program.lastUpdate | date:'yyyy-MM-dd HH:mm' }}
+                        </div>
+                    </div>
+
+                    <!-- Actions (DevExtreme configs must be in Controller) -->
+                    <div class="page-actions">
+                        <div dx-button="vm.btn_programs"></div>
+                        <div dx-button="vm.btn_export"></div>
+                        <div dx-button="vm.btn_add_item" ng-if="vm.program.status!=='Locked'"></div>
+                        <div dx-button="vm.btn_lock_program" ng-if="vm.program.status==='Approved'"></div>
+                    </div>
+                </div>
+
+                <!-- KPI strip -->
+                <div class="card" style="padding:10px 12px;">
+                    <div class="kpi-grid">
+
+                        <div class="pill-kpi kpi-center">
+                            <div class="card-subtitle">Planned items</div>
+                            <strong class="kpi-value">{{ vm.kpi.planned }}</strong>
+                        </div>
+
+                        <div class="pill-kpi kpi-center">
+                            <div class="card-subtitle">Audits created</div>
+                            <strong class="kpi-value">{{ vm.kpi.created }}</strong>
+                        </div>
+
+                        <div class="pill-kpi kpi-center">
+                            <div class="card-subtitle">In progress</div>
+                            <strong class="kpi-value">{{ vm.kpi.inProgress }}</strong>
+                        </div>
+
+                        <div class="pill-kpi kpi-center">
+                            <div class="card-subtitle">Overdue</div>
+                            <strong class="kpi-value">{{ vm.kpi.overdue }}</strong>
+                        </div>
+
+                        <div class="pill-kpi kpi-center">
+                            <div class="card-subtitle">Completed</div>
+                            <strong class="kpi-value">{{ vm.kpi.completed }}</strong>
+                        </div>
+
+                        <div class="pill-kpi kpi-center">
+                            <div class="card-subtitle">Coverage</div>
+                            <strong class="kpi-value">{{ vm.kpi.coveragePct }}%</strong>
+                            <div class="hint" style="margin-top:4px;">
+                                {{ vm.kpi.created }}/{{ vm.kpi.planned }} created
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- program detailw -->
+                <div class="card" style="padding:12px 14px;">
+                    <div class="card-header" style="margin-bottom:10px;">
+                        <div>
+                            <div class="page-title" style="margin:0;">
+                                <span>Audit Program</span>
+
+                                <!-- code as pill (readonly) -->
+                                <span class="pill" style="margin-left:8px;">
+                                    <span class="pill-dot"></span>
+                                    <span style="font-weight:600; color:var(--text-main);">{{ vm.program.code || ('AP-' + vm.program.id) }}</span>
+                                </span>
+
+                                <!-- status next to title -->
+                                <span class="tag" style="margin-left:8px;">
+                                    <span class="tag-pill tag-pill-blue"></span>
+                                    <span>{{ vm.program.status }}</span>
+                                </span>
+                            </div>
+
+                            <div class="page-subtitle" style="margin-top:4px;">
+                                Annual / rolling program definition and notes.
+                            </div>
+                        </div>
+
+                        <div class="page-actions">
+                            <div dx-button="vm.btn_edit_program"></div>
+                            <div dx-button="vm.btn_save_program"></div>
+                            <div dx-button="vm.btn_cancel_program"></div>
+                        </div>
+                    </div>
+
+                    <!-- fields -->
+                    <div class="form-grid">
+                        <div class="form-group full">
+                            <label><span class="field-name">Title</span></label>
+                            <div dx-text-box="vm.dx_pd_title"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><span class="field-name">Type</span></label>
+                            <div dx-select-box="vm.dx_pd_type"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><span class="field-name">Period from</span></label>
+                            <div dx-date-box="vm.dx_pd_from"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><span class="field-name">Period to</span></label>
+                            <div dx-date-box="vm.dx_pd_to"></div>
+                        </div>
+
+                        <div class="form-group full">
+                            <label><span class="field-name">Notes</span></label>
+                            <div dx-text-area="vm.dx_pd_notes"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Filters -->
+                <!--<div class="card" style="padding:10px 12px;">
+    <div class="card-header">
+        <div>
+            <div class="card-title">Plan items</div>
+            <div class="card-subtitle">
+                Create audits from planned items for traceability (planned → executed).
+            </div>
+        </div>
+
+        <div class="card-header-right">
+            <span class="tag">Program ID: {{ vm.program.id }}</span>
+        </div>
+    </div>
+
+    <div class="form-grid" style="margin-top:6px;">
+
+        <div class="form-group">
+            <label><span class="field-name">Search</span></label>
+            <div dx-text-box="vm.sb_search_q"></div>
+        </div>
+        <div class="form-group">
+            <label><span class="field-name">Department</span></label>
+            <div dx-select-box="vm.sb_filter_department"></div>
+        </div>
+        <div class="form-group more-inline">
+            <label>&nbsp;</label>
+            <div class="more-link-left" dx-button="vm.btn_toggle_more_filters"></div>
+        </div>
+
+
+
+
+    </div>
+    <div class="form-grid" ng-show="vm.show_more_filters" style="margin-top:8px; border-top:1px solid var(--border); padding-top:10px;">
+
+        <div class="form-group">
+            <label><span class="field-name">Window</span></label>
+            <div dx-select-box="vm.sb_filter_window"></div>
+        </div>
+
+        <div class="form-group">
+            <label><span class="field-name">Priority</span></label>
+            <div dx-select-box="vm.sb_filter_priority"></div>
+        </div>
+
+        <div class="form-group">
+            <label><span class="field-name">Execution</span></label>
+            <div dx-select-box="vm.sb_filter_mode"></div>
+        </div>
+
+    </div>-->
+                <!-- Actions -->
+                <!--<div class="form-group" style="grid-column:1/-1;">
+            <div style="display:flex; gap:8px; align-items:center; justify-content:flex-end;">
+                <div dx-button="vm.btn_reset_filters"></div>
+                <div dx-button="vm.btn_refresh"></div>
+            </div>
+        </div>
+    </div>-->
+                
+<!-- Plan items table -->
+<div class="card" style="padding:0;">
+    <div class="card-title-row">
+        <div class="card-title">Plan items</div>
+        <div class="card-actions">
+            <div dx-button="vm.btn_refresh"></div>
+            <div dx-button="vm.btn_export"></div>
+        </div>
+    </div>
+
+    <div class="card-body" style="padding:10px 12px 14px 12px;">
+        <div class="dx-plan-grid" dx-data-grid="vm.dx_plan_grid"></div>
+    </div>
+</div>
+
+<!-- Coverage -->
+                <div class="card" style="margin-top:12px;">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Coverage by area</div>
+                            <div class="card-subtitle">Planned vs created audits per scope.</div>
+                        </div>
+                        <div class="card-header-right">
+                            <span class="link-like" ng-click="vm.openCoverage()">View details</span>
+                        </div>
+                    </div>
+
+                    <ul class="pill-list">
+                        <li>
+                            <span class="pill-metric"><span class="value">{{vm.coverage.flightOps.created}}</span><span class="label">created</span></span>
+                            <span class="pill-metric"><span class="value">{{vm.coverage.flightOps.planned}}</span><span class="label">planned</span></span>
+                            <span style="margin-left:8px;">Flight Ops</span>
+                        </li>
+                        <li>
+                            <span class="pill-metric"><span class="value">{{vm.coverage.ramp.created}}</span><span class="label">created</span></span>
+                            <span class="pill-metric"><span class="value">{{vm.coverage.ramp.planned}}</span><span class="label">planned</span></span>
+                            <span style="margin-left:8px;">Ramp / Ground Ops</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Refs Popup (DevExtreme) -->
+    <div dx-popup="vm.dx_refs_popup">
+
+        <div class="card" style="margin:10px; padding:10px;">
+            <div class="card-title" style="margin-bottom:6px;">
+                {{ (vm.refs_modal.plan_item.scope_title || vm.refs_modal.plan_item.scopeTitle || vm.refs_modal.plan_item.title || 'Plan Item') }}
+                <span class="tag" style="margin-left:6px;">PlanId: {{ vm.refs_modal.plan_item.id }}</span>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label><span class="field-name">Document</span></label>
+                    <div dx-select-box="vm.dx_doc_select"></div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="field-name">Clause (optional)</span></label>
+                    <div dx-select-box="vm.dx_clause_select"></div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="field-name">Weight (1..5)</span></label>
+                    <div dx-number-box="vm.dx_weight"></div>
+                </div>
+
+                <div class="form-group" style="grid-column:1/-1;">
+                    <label><span class="field-name">Note</span></label>
+                    <div dx-text-box="vm.dx_note"></div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="field-name">Action</span></label>
+                    <div dx-button="vm.dx_add_ref_btn"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card" style="margin:10px; padding:0;">
+            <div dx-data-grid="vm.dx_refs_grid"></div>
+        </div>
+
+        <div style="padding:0 10px 10px 10px; display:flex; justify-content:flex-end; gap:8px;">
+            <div dx-button="vm.dx_close_refs_btn"></div>
+        </div>
+
+    </div>
+
+    <!-- Edit Plan Item Popup -->
+    <div dx-popup="vm.dx_edit_plan_popup">
+        <div class="card" style="margin:10px; padding:10px;">
+            <div class="card-title" style="margin-bottom:8px;">
+                {{ (vm.edit_plan && vm.edit_plan.id > 0) ? 'Edit plan item' : 'Add plan item' }}
+
+                <span class="tag"
+                      style="margin-left:6px;"
+                      ng-if="vm.edit_plan && vm.edit_plan.id > 0">
+                    #{{ vm.edit_plan.id }}
+                </span>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label><span class="field-name">Code</span></label>
+                    <div dx-text-box="vm.dx_ep_code"></div>
+                </div>
+
+                <div class="form-group" style="grid-column:1/-1;">
+                    <label><span class="field-name">Title</span></label>
+                    <div dx-text-box="vm.dx_ep_title"></div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="field-name">Department</span></label>
+                    <div dx-select-box="vm.dx_ep_department"></div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="field-name">Period type</span></label>
+                    <div dx-select-box="vm.dx_ep_period_type"></div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="field-name">Period value</span></label>
+                    <div dx-number-box="vm.dx_ep_period_value"></div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="field-name">Year</span></label>
+                    <div dx-number-box="vm.dx_ep_year"></div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="field-name">Method</span></label>
+                    <div dx-select-box="vm.dx_ep_audit_method"></div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="field-name">Execution</span></label>
+                    <div dx-select-box="vm.dx_ep_execution_mode"></div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="field-name">Priority</span></label>
+                    <div dx-select-box="vm.dx_ep_priority"></div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="field-name">Planned count</span></label>
+                    <div dx-number-box="vm.dx_ep_planned_count"></div>
+                </div>
+
+                <div class="form-group" style="grid-column:1/-1;">
+                    <label><span class="field-name">Notes</span></label>
+                    <div dx-text-area="vm.dx_ep_notes"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div style="padding:0 10px 10px 10px; display:flex; justify-content:flex-end; gap:8px;">
+            <div dx-button="vm.dx_ep_cancel_btn"></div>
+            <div dx-button="vm.dx_ep_save_btn"></div>
+        </div>
+    </div>
+
+</div>

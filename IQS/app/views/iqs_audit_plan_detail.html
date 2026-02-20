@@ -1,4 +1,10 @@
-﻿<div class="content-area">
+﻿
+<div class="app-shell">
+  
+    <div class="main-layout">
+        
+
+        <div class="content-area">
 
             <div id="scroll_content" class="scroll-flex" dx-scroll-view="scroll_content">
                 <div class="page-header">
@@ -98,44 +104,32 @@
                         <div class="page-subtitle">Audit programme</div>
                         <div dx-button="btn_audit_add" class="btn btn-primary"></div>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Code</th>
-                                <th>Title</th>
-                                <th>Type</th>
-                                <th>Audit date</th>
-                                <th>Auditee</th>
-                                <th>Auditor</th>
-                                <th>Location</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="a in audits">
-                                <td>{{ a.code }}</td>
-                                <td>{{ a.title }}</td>
-                                <td>{{ a.type_id }}</td>
-                                <td>{{ a.audit_date | date:'yyyy-MM-dd' }}</td>
-                                <td>{{ a.auditee_name }}</td>
-                                <td>{{ a.auditor_name }}</td>
-                                <td>{{ a.location_title }}</td>
-                                <td>
-                                    <span class="link-like" ng-click="openAudit(a)">Open</span>
-                                </td>
-                            </tr>
-                            <tr ng-if="!audits || !audits.length">
-                                <td colspan="7" style="font-size:0.85rem; color:var(--text-muted);">
-                                    No planned audits.
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
 
+                    <div class="audit-list" ng-if="audits && audits.length">
+                        <div class="audit-item" ng-repeat="a in audits" ng-click="openAudit(a)">
+                            <div class="audit-item-main">
+                                <div class="audit-item-title">
+                                    <span style="font-weight:600;">{{ a.code }}</span>
+                                    <span style="opacity:.75;">—</span>
+                                    <span>{{ a.title }}</span>
+                                </div>
+                                <div class="audit-item-meta">
+                                    <span class="tag">{{ a.status || 'Draft' }}</span>
+                                    <span class="tag">{{ a.audit_date | date:'yyyy-MM-dd' }}</span>
+                                    <span class="tag" ng-if="a.auditee_name">{{ a.auditee_name }}</span>
+                                    <span class="tag" ng-if="a.auditor_name">{{ a.auditor_name }}</span>
+                                    <span class="tag" ng-if="a.location_title">{{ a.location_title }}</span>
+                                </div>
+                            </div>
+                            <div class="audit-item-open">Open →</div>
+                        </div>
+                    </div>
 
+                    <div class="hint" ng-if="!audits || !audits.length" style="margin-top:6px;">
+                        No planned audits.
+                    </div>
 
-
-
-                    <div class="page-subtitle" style="margin:12px 0px 6px 0px;">Closing meeting</div>
+<div class="page-subtitle" style="margin:12px 0px 6px 0px;">Closing meeting</div>
 
                     <div class="meeting-grid">
                         <div class="form-group">
@@ -255,3 +249,15 @@
                 </div>
             </div>
         </div>
+
+        <!--<div class="footer">
+            <span><strong>Note:</strong> All content is fictitious and for concept/demo only.</span>
+            <span class="link-muted" ng-click="shell.go('/hazards')">Back to hazard register</span>
+        </div>-->
+    </div>
+</div>
+
+
+
+
+

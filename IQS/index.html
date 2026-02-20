@@ -55,10 +55,24 @@
                         <span class="nav-label-main">MOCs</span>
                         <span class="nav-badge">Change</span>
                     </div>
-                    <div class="nav-item" ng-class="{active: isRoute('/iqs/audit')}" ng-click="go('/iqs/audit/list')">
+                    <!--<div class="nav-item" ng-class="{active: isRoute('/iqs/audit')}" ng-click="go('/iqs/audit/list')">
                         <span class="nav-icon">📝</span>
                         <span class="nav-label-main">Audits</span>
                         <span class="nav-badge">Assurance</span>
+                    </div>
+
+                    <div class="nav-section-title">Change & assurance</div>-->
+
+                    <div class="nav-item" ng-class="{active: isRoute('/iqs/audit/hub')}" ng-click="go('/iqs/audit/hub')">
+                        <span class="nav-icon">🧭</span>
+                        <span class="nav-label-main">Audit Hub</span>
+                        <span class="nav-badge">Overview</span>
+                    </div>
+
+                    <div class="nav-item" ng-class="{active: isRoute('/iqs/audit/programs')}" ng-click="go('/iqs/audit/programs')">
+                        <span class="nav-icon">🗓️</span>
+                        <span class="nav-label-main">Audit Programs</span>
+                        <span class="nav-badge">Plan</span>
                     </div>
 
                     <div class="nav-footer">
@@ -135,6 +149,9 @@
     <script src="app/controllers/iqs_audit_plan_detail_controller.js"></script>
     <script src="app/controllers/iqs_audit_detail_controller.js"></script>
     <script src="app/controllers/iqs_audit_finding_controller.js"></script>
+    <script src="app/controllers/iqs_audit_program_controller.js"></script>
+    <script src="app/controllers/iqs_audit_program_list_controller.js"></script>
+    <script src="app/controllers/iqs_audit_hub_controller.js"></script>
 
     <script src="app/controllers/iqs_moc_list_controller.js"></script>
     <script src="app/controllers/iqs_moc_detail_controller.js"></script>
