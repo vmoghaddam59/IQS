@@ -1,0 +1,47 @@
+﻿/* Vertical scrollbar width */
+.dx-scrollbar-vertical .dx-scrollable-scroll {
+    width: 8px;
+}
+
+/* Track */
+.dx-scrollable-scroll {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+/* Thumb */
+.dx-scrollable-scroll-content {
+    background-color: rgba(0, 150, 255, 0.8);
+    border-radius: 8px;
+    border-radius: var(--radius-xl);
+}
+
+/* Prevent fade-to-transparent */
+.dx-scrollable-scroll.dx-state-invisible {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+#scroll_form {
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(31, 41, 55, 0.9);
+    overflow: hidden;
+    padding: 3px
+}
+
+    #scroll_form .dx-scrollable-wrapper,
+    #scroll_form .dx-scrollable-container {
+        border-radius: inherit;
+    }
+
+.dx-button .dx-icon {
+    color: #a6a9ae;
+    font-size: 14px;
+    width: 14px;
+    height: 15px;
+}
+
+/*.dx-popup-content {
+    background-color: #020617;
+    border: 1px solid rgba(31, 41, 55, 0.9);
+    border-radius: 9px;
+}*/

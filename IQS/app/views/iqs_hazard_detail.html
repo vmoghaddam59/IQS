@@ -1,0 +1,591 @@
+﻿<style>
+    .selected-risk {
+        background-color: #3b82f6;
+        color: white;
+        font-weight: bold;
+    }
+</style>
+
+<div class="app-shell">
+    <div class="topbar">
+        <div class="brand">
+            <div class="brand-logo"></div>
+            <div>
+                <div class="brand-text-main">IQS - Safety Management Studio</div>
+                <div class="brand-text-sub">Version Beta 0.5</div>
+            </div>
+        </div>
+        <div class="topbar-right">
+            <div class="pill">
+                <span class="pill-dot"></span>
+                <span>Demo data – not connected to live SMS</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-layout">
+        <div class="sidebar">
+            <div class="nav-section-title">Safety core</div>
+            <div class="nav-item" ng-class="{active: shell.isRoute('/hazards')}" ng-click="shell.go('/hazards')">
+                <span class="nav-icon">⚠️</span>
+                <span class="nav-label-main">Hazards</span>
+                <span class="nav-badge">Register</span>
+            </div>
+            <div class="nav-item" ng-class="{active: shell.isRoute('/occurrences')}" ng-click="shell.go('/occurrences')">
+                <span class="nav-icon">📋</span>
+                <span class="nav-label-main">Occurrences</span>
+                <span class="nav-badge">Reports</span>
+            </div>
+
+            <div class="nav-section-title">Change & assurance</div>
+            <div class="nav-item" ng-class="{active: shell.isRoute('/mocs')}" ng-click="shell.go('/mocs')">
+                <span class="nav-icon">♻️</span>
+                <span class="nav-label-main">MOCs</span>
+                <span class="nav-badge">Change</span>
+            </div>
+            <div class="nav-item" ng-class="{active: shell.isRoute('/audits')}" ng-click="shell.go('/audits')">
+                <span class="nav-icon">📝</span>
+                <span class="nav-label-main">Audits</span>
+                <span class="nav-badge">Assurance</span>
+            </div>
+
+            <div class="nav-footer">
+                <div><strong>Demo focus:</strong> hazard log, risk matrix, MOC & audit linkages and hazard-level actions/monitoring.</div>
+            </div>
+        </div>
+
+        <div class="content-area">
+
+            <div>
+                <div class="page-header">
+                    <div class="page-title-block">
+                        <div class="page-title">
+                            Hazard – {{ entity.code || 'New' }}
+                            <span class="page-title-pill">Details</span>
+                        </div>
+                        <div class="page-subtitle">
+                            End-to-end view of a single hazard: identification, causes, risk, occurrences, actions and monitoring.
+                        </div>
+                    </div>
+                    <div class="page-actions">
+                        <!--<button class="btn btn-ghost" ng-click="cancel()">
+        <span class="icon">←</span>
+        Back
+    </button>
+    <button class="btn btn-primary" ng-click="save()">
+
+        Save
+    </button>-->
+                        <div class="btn btn-ghost" dx-button="btn_back"></div>
+                        <div class="btn btn-ghost" dx-button="btn_save"></div>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="tabs">
+                        <div class="tab" ng-class="{active: isTab('overview')}" ng-click="setTab('overview')">
+                            <span class="tab-icon-dot"></span>
+                            Overview
+                        </div>
+                        <div class="tab" ng-class="{active: isTab('ident')}" ng-click="setTab('ident')">
+                            <span class="tab-icon-dot"></span>
+                            Identification
+                        </div>
+                        <div class="tab" ng-class="{active: isTab('causes')}" ng-click="setTab('causes')">
+                            <span class="tab-icon-dot"></span>
+                            Causes &amp; consequences
+                        </div>
+                        <div class="tab" ng-class="{active: isTab('risk')}" ng-click="setTab('risk')">
+                            <span class="tab-icon-dot"></span>
+                            Risk assessments
+                        </div>
+                        <div class="tab" ng-class="{active: isTab('occ')}" ng-click="setTab('occ')">
+                            <span class="tab-icon-dot"></span>
+                            Occurrences
+                        </div>
+                        <div class="tab" ng-class="{active: isTab('actions')}" ng-click="setTab('actions')">
+                            <span class="tab-icon-dot"></span>
+                            Actions &amp; Monitoring
+                        </div>
+                    </div>
+
+                    <!-- OVERVIEW -->
+                    <div ng-show="isTab('overview')">
+                        <div class="split-2">
+                            <div>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label><span class="field-name">Code</span></label>
+                                        <!--<input type="text" ng-model="item.code" placeholder="H-00023" />-->
+                                        <div class="input" dx-text-box="txt_code"></div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label><span class="field-name">Status</span></label>
+                                        <div class="input" dx-select-box="sb_status"></div>
+                                        <!--<select ng-model="item.status">
+                                            <option value="Open">Open</option>
+                                            <option value="In progress">In progress</option>
+                                            <option value="Closed">Closed</option>
+                                        </select>-->
+                                    </div>
+                                    <div class="form-group">
+                                        <label><span class="field-name">Hazard owner (dept / role)</span></label>
+                                        <div class="input" dx-text-box="txt_owner"></div>
+                                        <!--<input type="text" ng-model="item.ownerDept" placeholder="Flight Safety" />-->
+                                    </div>
+
+                                    <div class="form-group full">
+                                        <label><span class="field-name">Title</span></label>
+                                        <div class="input" dx-text-box="txt_title"></div>
+                                        <!--<input type="text" ng-model="item.title"
+                                           placeholder="Bird strike on approach to OIII" />-->
+                                    </div>
+
+                                    <div class="form-group full">
+                                        <label><span class="field-name">Short description</span></label>
+                                        <div class="input" dx-text-area="txt_description"></div>
+                                        <!--<textarea ng-model="item.summary"
+                                              placeholder="Short description of the hazard..."></textarea>-->
+                                    </div>
+                                </div>
+
+                                <div class="section-divider"></div>
+
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label><span class="field-name">Initial risk</span></label>
+                                        <div class="input" dx-select-box="sb_initial_risk"></div>
+                                        <!--<select ng-model="item.initialRisk">
+                                            <option value="High">High</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="Low">Low</option>
+                                        </select>-->
+                                    </div>
+                                    <div class="form-group">
+                                        <label><span class="field-name">Residual risk</span></label>
+                                        <div class="input" dx-select-box="sb_residual_risk"></div>
+                                        <!--<select ng-model="item.residualRisk">
+                                            <option value="High">High</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="Low">Low</option>
+                                        </select>-->
+                                    </div>
+                                    <div class="form-group">
+                                        <label><span class="field-name">Key risk driver</span></label>
+                                        <div class="input" dx-text-box="txt_key"></div>
+                                        <!--<input type="text" readonly
+                                           ng-model="item.keyDriver"
+                                           placeholder="e.g. Bird activity on approach path, seasonal patterns..." />-->
+                                    </div>
+                                </div>
+
+                                <div class="section-divider"></div>
+
+                                <div class="hint">
+                                    <strong>How to talk through this tab in a demo:</strong>
+                                    use it to tell the “story” of the hazard in two sentences: what it is, who owns it,
+                                    and how the risk is currently judged (initial → residual).
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="pill-kpi">
+                                    <strong>Assurance snapshot (demo)</strong>
+                                    <div class="kpi-row" style="margin-top:4px;">
+                                        <span class="kpi-dot"></span>
+                                        <span>Identification sources: {{ sources.length }} (occurrence + audit + MOC)</span>
+                                    </div>
+                                    <div class="kpi-row">
+                                        <span class="kpi-dot" style="background:var(--accent);"></span>
+                                        <span>Risk assessments in log: {{ riskAssessments.length }}</span>
+                                    </div>
+                                    <div class="kpi-row">
+                                        <span class="kpi-dot" style="background:var(--accent-success);"></span>
+                                        <span>Linked occurrences (demo): {{ occurrenceCount }}</span>
+                                    </div>
+                                    <div class="kpi-row">
+                                        <span class="kpi-dot" style="background:var(--accent-warn);"></span>
+                                        <span>Hazard actions recorded: {{ actions.length }}</span>
+                                    </div>
+                                </div>
+
+                                <div style="margin-top:10px;">
+                                    <span class="pill-metric">
+                                        <span class="label">Current risk band</span>
+                                        <span class="value">{{ currentRiskBand() }}</span>
+                                    </span>
+                                </div>
+
+                                <div class="risk-summary">
+                                    <p style="margin-top:6px;">
+                                        The risk band above reflects the current assessment in the Risk tab. In a real system,
+                                        this would be derived from the latest formal risk assessment record.
+                                    </p>
+                                </div>
+
+                                <div class="section-divider"></div>
+
+                                <div class="hint">
+                                    <strong>Tip for demo:</strong>
+                                    From here, navigate to <span class="link-like" ng-click="setTab('ident')">Identification</span>
+                                    to show how the hazard was discovered, then to
+                                    <span class="link-like" ng-click="setTab('risk')">Risk assessments</span> and finally to
+                                    <span class="link-like" ng-click="setTab('actions')">Actions &amp; Monitoring</span>
+                                    to close the loop.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IDENTIFICATION -->
+                    <div ng-show="isTab('ident')">
+                        <div class="form-grid">
+                            <div class="form-group full">
+                                <label><span class="field-name">How this hazard was identified</span></label>
+                                <p class="hint" style="margin:0;">
+                                    This section records the main sources that revealed the hazard, such as occurrence reports,
+                                    internal or external audits, MOC risk assessments, studies or safety meetings.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="section-divider"></div>
+
+                        <div class="card" style="background:none; border:none; padding:0;">
+                            <div class="card-subtitle" style="margin-bottom:4px;">Identification sources (demo)</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Primary</th>
+                                        <th>Method</th>
+                                        <th>Reference</th>
+                                        <th>Title / context</th>
+                                        <th>Date</th>
+                                        <th>Module</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="s in sources">
+                                        <!--<td>
+                                            <input type="radio" name="primarySource"
+                                                   ng-checked="s.isPrimary"
+                                                   ng-click="setPrimary($index)" />
+                                        </td>
+                                        <td>
+                                            <select ng-model="s.methodCode"
+                                                    ng-options="m.code as m.title for m in identificationMethods">
+                                            </select>
+                                        </td>-->
+                                        <td><div dx-check-box="chb_id_primary"></div></td>
+                                        <td><div dx-check-box="chb_id_method"></div></td>
+                                        <td><div dx-text-box="txt_id_ref"></div></td>
+                                        <td><div dx-text-box="txt_id_title"></div></td>
+                                        <td><div dx-date-box="dt_id_date"></div></td>
+                                        <td><div dx-text-box="txt_id_module"></div></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div style="margin-top:6px; display:flex; gap:8px;">
+                                <button class="btn btn-ghost" ng-click="addSource()">
+                                    <span class="icon">＋</span>
+                                    Add source
+                                </button>
+                                <button class="btn btn-ghost" ng-click="removeSource(sources.length - 1)"
+                                        ng-disabled="sources.length <= 1">
+                                    <span class="icon">−</span>
+                                    Remove last
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CAUSES & CONSEQUENCES -->
+                    <div ng-show="isTab('causes')">
+                        <div class="form-grid">
+                            <div class="form-group full">
+                                <label><span class="field-name">Causes and consequences (concept only)</span></label>
+                                <p class="hint" style="margin:0;">
+                                    In a production system, this tab would be linked to structured cause/consequence categories
+                                    (e.g. HFACS, technical, environmental). Here we only show that the hazard record provides
+                                    a home for structured analysis of why the hazard exists and what it can lead to.
+                                </p>
+                            </div>
+                            <div class="form-group full">
+                                <label><span class="field-name">Root causes (free text demo)</span></label>
+                                <div dx-text-area="txt_cuz_root"></div>
+                                <!--<textarea placeholder="E.g. wildlife attraction around airport, insufficient bird control coverage, seasonal migratory patterns..."></textarea>-->
+                            </div>
+                            <div class="form-group full">
+                                <label><span class="field-name">Potential consequences</span></label>
+                                <div dx-text-area="txt_cuz_potential"></div>
+                                <!--<textarea placeholder="E.g. engine damage, rejected take-off, emergency return, runway closure, schedule disruption, injuries..."></textarea>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RISK -->
+                    <div ng-show="isTab('risk')">
+                        <div class="risk-matrix-container">
+                            <div class="risk-matrix-wrapper">
+                                <div class="risk-matrix-header">
+                                    5×5 risk matrix – click anywhere in the grid to explain how “High / Medium / Low” are derived.
+                                </div>
+                                <table class="risk-matrix">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" class="rotate">Severity</th>
+                                            <th colspan="5">Likelihood</th>
+                                        </tr>
+                                        <tr>
+                                            <th>1<br />Extremely improbable</th>
+                                            <th>2<br />Improbable</th>
+                                            <th>3<br />Remote</th>
+                                            <th>4<br />Occasional</th>
+                                            <th>5<br />Frequent</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="s in severityLevels">
+                                            <th>{{ s.code }}<br />{{ s.title }}</th>
+                                            <td ng-repeat="l in [1,2,3,4,5]"
+                                                ng-class="riskCellClass(s, l)">
+                                                {{ l }}{{ s.code }}
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="risk-legend">
+                                    <div class="risk-legend-row">
+                                        <span class="risk-legend-color high"></span>
+                                        <span>Unacceptable – further risk reduction required before continuing operations.</span>
+                                    </div>
+                                    <div class="risk-legend-row">
+                                        <span class="risk-legend-color med"></span>
+                                        <span>Undesirable / acceptable with controls – only acceptable with strong mitigations.</span>
+                                    </div>
+                                    <div class="risk-legend-row">
+                                        <span class="risk-legend-color low"></span>
+                                        <span>Acceptable – monitor through routine safety assurance.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="card" style="padding:8px 10px;">
+                                    <div class="card-title" style="margin-bottom:4px;">Current assessment</div>
+                                    <div class="form-grid">
+
+
+                                        <div class="form-group">
+                                            <label><span class="field-name">Severity</span></label>
+                                            <div dx-select-box="severitySelectOptions"></div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><span class="field-name">Likelihood</span></label>
+                                            <div dx-select-box="likelihoodSelectOptions"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="field-name"><br /></span></label>
+                                            <div class="btn btn-ghost" dx-button="btn_add_risk"></div>
+                                        </div>
+                                        <!--<div class="form-group">
+                                            <label><span class="field-name">Severity</span></label>
+                                            <select ng-model="currentAssessment.severity"
+                                                    ng-options="s.code as (s.code + ' – ' + s.title) for s in severityLevels">
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="field-name">Likelihood</span></label>
+                                            <select ng-model="currentAssessment.likelihood"
+                                                    ng-options="l.code as (l.code + ' – ' + l.title) for l in likelihoodLevels">
+                                            </select>
+                                        </div>-->
+                                        <!--<div class="form-group">
+                                            <label><span class="field-name">Matrix cell</span></label>
+                                            <input type="text" readonly ng-model="currentRiskCode()" />
+                                        </div>
+                                        <div class="form-group full">
+                                            <label><span class="field-name">Risk band (demo logic)</span></label>
+                                            <input type="text" readonly ng-model="currentRiskBand()" />
+                                        </div>-->
+                                    </div>
+                                    <!--<div class="risk-summary">
+                                        <p style="margin-top:6px;">
+                                            In this demo the band is derived by multiplying a numeric value for severity
+                                            (A=5 … E=1) by the likelihood level and mapping the score to the risk bands.
+                                            In a real implementation this would follow your exact matrix definition.
+                                        </p>
+                                    </div>-->
+                                </div>
+
+                                <div class="section-divider"></div>
+
+                                <div class="card" style="padding:8px 10px;">
+                                    <div class="page-subtitle" style="margin-bottom:4px;">
+                                        Risk assessment history for this hazard
+                                    </div>
+                                    <p class="hint" style="margin:0 0 6px;">
+                                        Each row represents a formal risk assessment (initial assessment, reassessment after
+                                        new controls, post-MOC review, etc.) with the initial and residual matrix indices.
+                                    </p>
+                                    <div dx-data-grid="dg_risk" id="dg_risk" class="content" style="overflow-y:hidden; border-radius: 13px"></div>
+                                    <!--<table>
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>No</th>
+                                                <th>Initial index</th>
+                                                <th>Initial risk</th>
+                                                <th>Residual index</th>
+                                                <th>Residual risk</th>
+                                                <th>Acceptability</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="ra in riskAssessments">
+                                                <td>{{ ra.date }}</td>
+                                                <td>{{ ra.assessmentNo }}</td>
+                                                <td>{{ ra.initialIndex }}</td>
+                                                <td>{{ ra.initial }}</td>
+                                                <td>{{ ra.residualIndex }}</td>
+                                                <td>{{ ra.residual }}</td>
+                                                <td>{{ ra.acceptability }}</td>
+                                            </tr>
+                                            <tr ng-if="!riskAssessments.length">
+                                                <td colspan="7" style="font-size:0.85rem; color:var(--text-muted);">
+                                                    No risk assessments recorded for this hazard in demo data.
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OCCURRENCES -->
+                    <div ng-show="isTab('occ')">
+                        <p class="hint" style="margin-top:0;">
+                            This tab provides an overview of occurrences linked to this hazard (e.g. bird strikes, ramp
+                            incidents). In a full implementation this would drill down to the occurrence module.
+                        </p>
+
+                        <div class="card" style="padding:8px 10px;">
+                            <div class="page-subtitle" style="margin-bottom:4px;">Occurrences (demo)</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Flight / ref</th>
+                                        <th>Type</th>
+                                        <th>Severity</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="o in linked_list">
+                                        <td>{{ o.event_date }}</td>
+                                        <td>{{ o.entity_id }}</td>
+                                        <td>{{ o.type_title }}</td>
+                                        <td>{{ o.severity }}</td>
+                                        <td>{{ o.status_title }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div style="margin-top:6px; display:flex; gap:8px;">
+                                <div class="btn btn-ghost" dx-button="btn_add_occurrence"></div>
+                                <div class="btn btn-ghost" dx-button="btn_remove_occurrence"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIONS & MONITORING -->
+                    <div ng-show="isTab('actions')">
+                        <p class="hint" style="margin-top:0;">
+                            <strong>Actions &amp; monitoring = how we treat and follow up the hazard.</strong>
+                            This tab summarises hazard-level risk controls / corrective actions and how their effectiveness
+                            is monitored over time (SPIs, audits, inspections, etc.).
+                        </p>
+
+                        <div class="card" style="padding:8px 10px;">
+                            <div class="page-subtitle" style="margin-bottom:4px;">Risk controls / actions</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Action / control</th>
+                                        <th>Type</th>
+                                        <th>Owner (role / dept)</th>
+                                        <th>Target date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="a in actions">
+                                        <td>{{ a.actionNo }}</td>
+                                        <td>{{ a.action }}</td>
+                                        <td>{{ a.type }}</td>
+                                        <td>{{ a.owner }}</td>
+                                        <td>{{ a.targetDate }}</td>
+                                        <td>{{ a.status }}</td>
+                                    </tr>
+                                    <tr ng-if="!actions.length">
+                                        <td colspan="6" style="font-size:0.85rem; color:var(--text-muted);">
+                                            No specific controls / actions recorded for this hazard in demo data.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card" style="padding:8px 10px; margin-top:8px;">
+                            <div class="page-subtitle" style="margin-bottom:4px;">Monitoring &amp; review</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Indicator / SPI</th>
+                                        <th>Monitoring method</th>
+                                        <th>Frequency</th>
+                                        <th>Last review</th>
+                                        <th>Next review</th>
+                                        <th>Conclusion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="m in monitoring">
+                                        <td>{{ m.indicator }}</td>
+                                        <td>{{ m.method }}</td>
+                                        <td>{{ m.frequency }}</td>
+                                        <td>{{ m.lastReview }}</td>
+                                        <td>{{ m.nextReview }}</td>
+                                        <td>{{ m.conclusion }}</td>
+                                    </tr>
+                                    <tr ng-if="!monitoring.length">
+                                        <td colspan="6" style="font-size:0.85rem; color:var(--text-muted);">
+                                            No monitoring plan recorded for this hazard in demo data.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="popup_add_occurrence" dx-popup="popup_add_occurrence">
+            <div dx-data-grid="dg_occurrences" id="dg_occurrences" class="content" style="overflow-y:hidden; border-radius: 13px"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

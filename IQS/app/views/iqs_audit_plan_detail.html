@@ -1,0 +1,319 @@
+﻿
+<div class="app-shell">
+    <div class="topbar">
+        <div class="brand">
+            <div class="brand-logo"></div>
+            <div>
+                <div class="brand-text-main">IQS - Safety Management Studio</div>
+                <div class="brand-text-sub">Version Beta 0.5</div>
+            </div>
+        </div>
+        <div class="topbar-right">
+            <div class="pill">
+                <span class="pill-dot"></span>
+
+                <span>Demo data – not connected to live SMS</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-layout">
+        <div class="sidebar">
+            <div class="nav-section-title">Safety core</div>
+            <div class="nav-item" ng-class="{active: shell.isRoute('/hazards')}" ng-click="shell.go('/hazards')">
+                <span class="nav-icon">⚠️</span>
+                <span class="nav-label-main">Hazards</span>
+                <span class="nav-badge">Register</span>
+            </div>
+            <div class="nav-item" ng-class="{active: shell.isRoute('/occurrences')}" ng-click="shell.go('/occurrences')">
+                <span class="nav-icon">📋</span>
+                <span class="nav-label-main">Occurrences</span>
+                <span class="nav-badge">Reports</span>
+            </div>
+
+            <div class="nav-section-title">Change & assurance</div>
+            <div class="nav-item" ng-class="{active: shell.isRoute('/mocs')}" ng-click="shell.go('/mocs')">
+                <span class="nav-icon">♻️</span>
+                <span class="nav-label-main">MOCs</span>
+                <span class="nav-badge">Change</span>
+            </div>
+            <div class="nav-item" ng-class="{active: shell.isRoute('/audits')}" ng-click="shell.go('/audits')">
+                <span class="nav-icon">📝</span>
+                <span class="nav-label-main">Audits</span>
+                <span class="nav-badge">Assurance</span>
+            </div>
+
+            <div class="nav-footer">
+                <div><strong>Demo focus:</strong> hazard log, risk matrix, MOC & audit linkages and hazard-level actions/monitoring.</div>
+            </div>
+        </div>
+
+        <div class="content-area">
+
+            <div id="scroll_content" class="scroll-flex" dx-scroll-view="scroll_content">
+                <div class="page-header">
+                    <div class="page-title-block">
+                        <div class="page-title">
+                            Audit Plan – {{ item.auditNo }}
+                            <span class="page-title-pill">Internal audit</span>
+                        </div>
+                        <div class="page-subtitle">
+                            Conceptual view showing scope, objectives, findings, corrective actions and linked hazards.
+                        </div>
+                    </div>
+                    <div class="page-actions">
+                        <div dx-button="btn_back" class="btn btn-ghost">
+                            <span class="icon">←</span>
+                            Back
+                        </div>
+                        <div dx-button="btn_save" class="btn btn-primary">
+                            <span class="icon">＋</span>
+                            Save
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="form-grid">
+                        <div class="form-group full">
+                            <label><span class="field-name">Title</span></label>
+                            <div class="input" dx-text-box="txt_title" dx-validator="{validationGroup:'auditsave',  validationRules: [{ type: 'required' }]}"></div>
+                            <!--<input type="text"  ng-model="item.title" />-->
+
+                        </div>
+                        <div class="form-group">
+                            <label><span class="field-name">Code</span></label>
+                            <div class="input" dx-text-box="txt_code"></div>
+                            <!--<input type="text" ng-model="item.dept" />-->
+                        </div>
+                        <div class="form-group">
+                            <label><span class="field-name">Type</span></label>
+                            <div class="input" dx-select-box="sb_types"></div>
+                            <!--<input type="text" ng-model="item.auditType" />-->
+                        </div>
+
+                        <div class="form-group">
+                            <label><span class="field-name">IssueDate</span></label>
+                            <div class="input" dx-date-box="dt_issue_date"></div>
+                            <!--<input type="text" ng-model="item.startDate" />-->
+                        </div>
+
+                        <div class="form-group full">
+                            <label><span class="field-name">Objective</span></label>
+                            <div class="input" dx-text-area="txt_objective"></div>
+                            <!--<textarea>{{ item.objective }}</textarea>s-->
+                        </div>
+
+                        <div class="form-group full">
+                            <label><span class="field-name">Description</span></label>
+                            <div class="input" dx-text-area="txt_Description"></div>
+                            <!--<textarea>{{ item.standards }}</textarea>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label><span class="field-name">Lead auditor</span></label>
+                            <div dx-select-box="sb_auditors"></div>
+                            <!--<input type="text" ng-model="item.leadAuditor" />-->
+                        </div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <div class="page-subtitle" style="margin-bottom:6px;">Opening meeting</div>
+                    <div class="meeting-grid">
+                        <div class="form-group">
+                            <label><span class="field-name">Start</span></label>
+                            <div class="input" dx-date-box="dt_opening_start"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><span class="field-name">End</span></label>
+                            <div class="input" dx-date-box="dt_opening_end"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><span class="field-name">Venue</span></label>
+                            <div class="input" dx-text-box="txt_opening_venue"></div>
+                        </div>
+                    </div>
+
+                    <!--<div class="section-head" style="margin: 12px 0px 6px 0px;">
+                        <div class="page-subtitle">Audit programme</div>
+                        <div dx-button="btn_audit_add" class="btn btn-primary" style="margin-right: 6px ;"  >
+                            <span class="icon" >＋</span>
+                            Add Audit
+                        </div>
+                    </div>-->
+                    <div class="section-head">
+                        <div class="page-subtitle">Audit programme</div>
+                        <div dx-button="btn_audit_add" class="btn btn-primary"></div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Audit date</th>
+                                <th>Auditee</th>
+                                <th>Auditor</th>
+                                <th>Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="a in audits">
+                                <td>{{ a.code }}</td>
+                                <td>{{ a.title }}</td>
+                                <td>{{ a.type_id }}</td>
+                                <td>{{ a.audit_date | date:'yyyy-MM-dd' }}</td>
+                                <td>{{ a.auditee_name }}</td>
+                                <td>{{ a.auditor_name }}</td>
+                                <td>{{ a.location_title }}</td>
+                                <td>
+                                    <span class="link-like" ng-click="openAudit(a)">Open</span>
+                                </td>
+                            </tr>
+                            <tr ng-if="!audits || !audits.length">
+                                <td colspan="7" style="font-size:0.85rem; color:var(--text-muted);">
+                                    No planned audits.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+
+
+                    <div class="page-subtitle" style="margin:12px 0px 6px 0px;">Closing meeting</div>
+
+                    <div class="meeting-grid">
+                        <div class="form-group">
+                            <label><span class="field-name">Start</span></label>
+                            <div class="input" dx-date-box="dt_closing_start"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><span class="field-name">End</span></label>
+                            <div class="input" dx-date-box="dt_closing_end"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><span class="field-name">Venue</span></label>
+                            <div class="input" dx-text-box="txt_closing_venue"></div>
+                        </div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <div class="card" style="background:none; border:none; padding:0;">
+                        <div class="page-subtitle" style="margin-bottom:6px;">Findings</div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Title</th>
+                                    <th>Level</th>
+                                    <th>Auditor</th>
+                                    <th>Closure Deadline</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="f in findings">
+                                    <td>{{ f.code }}</td>
+                                    <td>{{ f.title }}</td>
+                                    <td>{{ f.level }}</td>
+                                    <td>{{ f.auditor_name }}</td>
+                                    <td>{{ f.closure_deadline | date:'yyyy-MM-dd' }}</td>
+                                </tr>
+                                <tr ng-if="!findings || !findings.length">
+                                    <td colspan="5" style="font-size:0.85rem; color:var(--text-muted);">
+                                        No findings.
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    <div class="card" style="background:none; border:none; padding:0; margin-top:10px;">
+                        <div class="page-subtitle" style="margin-bottom:6px;">Corrective actions &amp; monitoring</div>
+                        <!--<p class="hint" style="margin:0 0 6px;">
+                            For each finding, this section summarises the agreed corrective action, the responsible owner,
+                            target date and how the effectiveness will be monitored.
+                        </p>-->
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Finding no</th>
+                                    <th>Corrective action</th>
+                                    <th>Owner</th>
+                                    <th>Target date</th>
+                                    <th>Follow-up / monitoring</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="a in actions">
+                                    <td>{{ a.finding_id }}</td>
+                                    <td>{{ a.action_title }}</td>
+                                    <td>{{ a.responsible_manager_name }}</td>
+                                    <td>{{ a.request_implementation_date | date:'yyyy-MM-dd' }}</td>
+                                    <td>
+                                        <div><strong>Approved:</strong> {{ a.is_approved }}</div>
+                                        <div ng-if="a.follow_up1_date"><strong>FU1:</strong> {{ a.follow_up1_date | date:'yyyy-MM-dd' }}</div>
+                                        <div ng-if="a.follow_up2_date"><strong>FU2:</strong> {{ a.follow_up2_date | date:'yyyy-MM-dd' }}</div>
+                                    </td>
+                                </tr>
+                                <tr ng-if="!actions || !actions.length">
+                                    <td colspan="5" style="font-size:0.85rem; color:var(--text-muted);">
+                                        No corrective actions.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <div class="card" style="background:none; border:none; padding:0;">
+                        <div class="page-subtitle" style="margin-bottom:6px;">Linked hazards</div>
+                        <p class="hint" style="margin:0 0 6px;">
+                            Hazards that are either the subject of the audit or are directly affected by its findings.
+                        </p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Hazard code</th>
+                                    <th>Title</th>
+                                    <th>Risk (initial → residual)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="h in hazards">
+                                    <td>{{ h.code }}</td>
+                                    <td>{{ h.title }}</td>
+                                    <td>{{ h.initialRisk }} → {{ h.residualRisk }}</td>
+                                </tr>
+                                <tr ng-if="!hazards.length">
+                                    <td colspan="3" style="font-size:0.85rem; color:var(--text-muted);">
+                                        No hazards linked in this demo.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="footer">
+            <span><strong>Note:</strong> All content is fictitious and for concept/demo only.</span>
+            <span class="link-muted" ng-click="shell.go('/hazards')">Back to hazard register</span>
+        </div>-->
+    </div>
+</div>
+
+
+
+
+

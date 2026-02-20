@@ -1,0 +1,23 @@
+## Visual Studio
+.vs/
+bin/
+obj/
+
+## User-specific files
+*.user
+*.suo
+
+## Build results
+Debug/
+Release/
+
+## Rider / ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+## Logs
+*.log
+
+## OS files
+.DS_Store
+Thumbs.db
