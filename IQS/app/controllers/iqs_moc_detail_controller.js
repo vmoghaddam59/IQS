@@ -11,5 +11,13 @@
         $scope.back = function () {
             $location.path('/iqs/moc/list');
         };
+
+        $scope.btn_back = {
+            text: 'Back',
+            icon: 'back',
+            onClick: function () {
+                $scope.back();
+            }
+        };
     }
 ]);

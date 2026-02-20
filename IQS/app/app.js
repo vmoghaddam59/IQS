@@ -9,10 +9,7 @@ app.config(function ($routeProvider) {
     //ati new 2
     
 
-    $routeProvider.when("/iqs", {
-        controller: "iqs_controller",
-        templateUrl: "/app/views/iqs.html"
-    });
+    $routeProvider.when("/iqs", { redirectTo: "/iqs/hazard/list" });
 
     $routeProvider.when("/iqs/hazard/list", {
         controller: "iqs_hazard_list_controller",
@@ -362,6 +359,13 @@ app.directive('onFinishRender', function ($timeout) {
 app.run(['authService', 'activityService', '$rootScope', '$location', '$templateCache', function (authService, activityService, $rootScope, $location, $templateCache) {
     //alert($location.absUrl());
     // Config.CustomerId = 1;
+    $rootScope.go = function (path) {
+        $location.path(path);
+    };
+    $rootScope.isRoute = function (route) {
+        return $location.path().indexOf(route) === 0;
+    };
+
     $rootScope.CustomerName = 'Caspian';
     $rootScope.CustomerPhone = '+982148063000';
     $rootScope.CustomerEmail = 'OpsEng@Caspian.aero';

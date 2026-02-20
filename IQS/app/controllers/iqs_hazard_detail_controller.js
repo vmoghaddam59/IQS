@@ -122,6 +122,23 @@
             });
         };
 
+        $scope.btn_add_source = {
+            text: 'Add source',
+            icon: 'plus',
+            onClick: function () {
+                $scope.addSource();
+            }
+        };
+
+        $scope.btn_remove_source = {
+            text: 'Remove source',
+            icon: 'minus',
+            bindingOptions: { disabled: 'sources.length <= 1' },
+            onClick: function () {
+                $scope.removeSource($scope.sources.length - 1);
+            }
+        };
+
         //$scope.currentRiskCode = function () {
         //    return $scope.currentAssessment.likelihood + '' + $scope.currentAssessment.severity;
         //};

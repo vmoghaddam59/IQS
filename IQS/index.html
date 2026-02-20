@@ -17,9 +17,65 @@
 
 </head>
 <body>
-    <div ng-app="GriffinApp" style=" height:100%">
+    <div ng-app="GriffinApp" style="height:100%">
+        <div ng-if="!isRoute('/login')" class="app-shell">
+            <div class="topbar">
+                <div class="brand">
+                    <div class="brand-logo"></div>
+                    <div>
+                        <div class="brand-text-main">IQS - Safety Management Studio</div>
+                        <div class="brand-text-sub">Version Beta 0.5</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="pill">
+                        <span class="pill-dot"></span>
+                        <span>Demo data – not connected to live SMS</span>
+                    </div>
+                </div>
+            </div>
 
-        <div class="app-shell" ng-view></div>
+            <div class="main-layout">
+                <div class="sidebar">
+                    <div class="nav-section-title">Safety core</div>
+                    <div class="nav-item" ng-class="{active: isRoute('/iqs/hazard')}" ng-click="go('/iqs/hazard/list')">
+                        <span class="nav-icon">⚠️</span>
+                        <span class="nav-label-main">Hazards</span>
+                        <span class="nav-badge">Register</span>
+                    </div>
+                    <div class="nav-item" ng-class="{active: isRoute('/iqs/occurrence')}" ng-click="go('/iqs/occurrence/list')">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-label-main">Occurrences</span>
+                        <span class="nav-badge">Reports</span>
+                    </div>
+
+                    <div class="nav-section-title">Change & assurance</div>
+                    <div class="nav-item" ng-class="{active: isRoute('/iqs/moc')}" ng-click="go('/iqs/moc/list')">
+                        <span class="nav-icon">♻️</span>
+                        <span class="nav-label-main">MOCs</span>
+                        <span class="nav-badge">Change</span>
+                    </div>
+                    <div class="nav-item" ng-class="{active: isRoute('/iqs/audit')}" ng-click="go('/iqs/audit/list')">
+                        <span class="nav-icon">📝</span>
+                        <span class="nav-label-main">Audits</span>
+                        <span class="nav-badge">Assurance</span>
+                    </div>
+
+                    <div class="nav-footer">
+                        <div><strong>Demo focus:</strong> hazard log, risk matrix, MOC & audit linkages and hazard-level actions/monitoring.</div>
+                    </div>
+                </div>
+
+                <div ng-view style="flex:1; min-width:0;"></div>
+            </div>
+
+            <div class="footer">
+                <span><strong>Note:</strong> All content is fictitious and for concept/demo only.</span>
+                <span class="link-muted" ng-click="go('/iqs/hazard/list')">Back to hazard register</span>
+            </div>
+        </div>
+
+        <div ng-if="isRoute('/login')" ng-view></div>
     </div>
 
     <script src="scripts/jquery-3.1.0.js"></script>

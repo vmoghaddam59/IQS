@@ -151,6 +151,28 @@
                 background-color: #f5f7f9;
             }
 
+
+    #login-button {
+        width: 350px;
+        margin: 0 auto;
+    }
+
+        #login-button .dx-button {
+            border-radius: 3px;
+            border: 0;
+            background-color: white;
+            color: gray;
+            min-height: 42px;
+        }
+
+        #login-button .dx-button-text {
+            font-size: 18px;
+        }
+
+        #login-button .dx-button:hover {
+            background-color: #f5f7f9;
+        }
+
     .bg-bubbles {
         position: absolute;
         top: 0;
@@ -288,7 +310,7 @@
 
             <input type="text" placeholder="Username" data-ng-model="loginData.userName" required autofocus>
             <input type="password" placeholder="Password" data-ng-model="loginData.password" required>
-            <button type="submit" id="login-button" data-ng-click="login()">Login</button>
+            <div dx-button="btn_login" id="login-button"></div>
             <p ng-show="message" style="font-weight:normal;text-align:center;font-size:18px;color:white;margin-top:10px;">
                 {{message}}
             </p>

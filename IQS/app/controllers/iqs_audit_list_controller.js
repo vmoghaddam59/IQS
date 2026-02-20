@@ -2,11 +2,34 @@
     $scope.items = DataService.getAudits();
 
     $scope.open = function (audit) {
-        $location.path('/iqs/audit/plan/detail/' + 4);//+ audit.id);
+        var planId = (audit && (audit.plan_id || audit.audit_plan_id || audit.id)) || -1;
+        $location.path('/iqs/audit/plan/detail/' + planId);
     };
 
     $scope.new = function (audit) {
         $location.path('/iqs/audit/plan/detail/' + -1);
+    };
+
+    $scope.refresh = function () {
+        $scope.items = DataService.getAudits();
+    };
+
+    $scope.btn_refresh = {
+        text: 'Refresh',
+        icon: 'refresh',
+        onClick: function () {
+            $scope.refresh();
+        }
+    };
+
+    $scope.btn_new = {
+        text: 'New Audit',
+        icon: 'plus',
+        type: 'default',
+        stylingMode: 'contained',
+        onClick: function () {
+            $scope.new();
+        }
     };
 
 }]);

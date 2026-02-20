@@ -1,52 +1,4 @@
-﻿<div class="app-shell">
-    <div class="topbar">
-        <div class="brand">
-            <div class="brand-logo"></div>
-            <div>
-                <div class="brand-text-main">IQS - Safety Management Studio</div>
-                <div class="brand-text-sub">Version Beta 0.5</div>
-            </div>
-        </div>
-        <div class="topbar-right">
-            <div class="pill">
-                <span class="pill-dot"></span>
-                <span>Demo data – not connected to live SMS</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="main-layout">
-        <div class="sidebar">
-            <div class="nav-section-title">Safety core</div>
-            <div class="nav-item" ng-click="go('/iqs/hazard/list')">
-                <span class="nav-icon">⚠️</span>
-                <span class="nav-label-main">Hazards</span>
-                <span class="nav-badge">Register</span>
-            </div>
-            <div class="nav-item" ng-click="go('/iqs/occurrence/list')">
-                <span class="nav-icon">📋</span>
-                <span class="nav-label-main">Occurrences</span>
-                <span class="nav-badge">Reports</span>
-            </div>
-
-            <div class="nav-section-title">Change & assurance</div>
-            <div class="nav-item" ng-click="go('/iqs/moc/list')">
-                <span class="nav-icon">♻️</span>
-                <span class="nav-label-main">MOCs</span>
-                <span class="nav-badge">Change</span>
-            </div>
-            <div class="nav-item" ng-click="go('/iqs/audit/list')">
-                <span class="nav-icon">📝</span>
-                <span class="nav-label-main">Audits</span>
-                <span class="nav-badge">Assurance</span>
-            </div>
-
-            <div class="nav-footer">
-                <div><strong>Demo focus:</strong> hazard log, risk matrix, MOC & audit linkages and hazard-level actions/monitoring.</div>
-            </div>
-        </div>
-
-        <div class="content-area">
+﻿<div class="content-area">
             <div>
                 <div class="page-header">
                     <div class="page-title-block">
@@ -72,18 +24,10 @@
                         <div class="card-subtitle">Click a status to filter the table. Counts update by selected report type.</div>
                     </div>
                     <div class="card-body" style="display:flex; gap:10px; flex-wrap:wrap;">
-                        <button class="pill-btn" ng-class="{'is-active': statusFilter==='Submitted'}" ng-click="setStatus('Submitted')">
-                            Submitted <span class="pill-count">{{ countBy(report_type,'Submitted') }}</span>
-                        </button>
-                        <button class="pill-btn" ng-class="{'is-active': statusFilter==='Under Review'}" ng-click="setStatus('Under Review')">
-                            Under Review <span class="pill-count">{{ countBy(report_type,'Under Review') }}</span>
-                        </button>
-                        <button class="pill-btn" ng-class="{'is-active': statusFilter==='Returned'}" ng-click="setStatus('Returned')">
-                            Returned <span class="pill-count">{{ countBy(report_type,'Returned') }}</span>
-                        </button>
-                        <button class="pill-btn" ng-class="{'is-active': statusFilter==='Closed'}" ng-click="setStatus('Closed')">
-                            Closed <span class="pill-count">{{ countBy(report_type,'Closed') }}</span>
-                        </button>
+                        <div dx-button="btn_status_submitted"></div>
+                        <div dx-button="btn_status_under_review"></div>
+                        <div dx-button="btn_status_returned"></div>
+                        <div dx-button="btn_status_closed"></div>
                     </div>
                 </div>
 
@@ -100,14 +44,3 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="footer">
-        <span><strong>Note:</strong> All content is fictitious and for concept/demo only.</span>
-        <span class="link-muted" ng-click="shell.go('/hazards')">Back to hazard register</span>
-    </div>
-</div>
-
-
-
-

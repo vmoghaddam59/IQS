@@ -1044,4 +1044,12 @@
         $scope.back = function () {
             $location.path('/iqs/occurrence/list');
         };
+
+        $scope.btn_back_to_occurrences = {
+            text: 'Back to occurrences',
+            icon: 'back',
+            onClick: function () {
+                $scope.back();
+            }
+        };
     }]);

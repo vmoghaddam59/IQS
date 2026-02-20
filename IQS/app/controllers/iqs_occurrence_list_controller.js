@@ -37,11 +37,13 @@
                     return (item.type_title === $scope.report_type && item.status_title === $scope.statusFilter);
                 });
                 $scope.countBy();
+                $scope.updateStatusButtonConfigs();
             } else {
                 $scope.dg_occurrences_ds = $scope.items.filter(function (item) {
                     return item.status_title === $scope.statusFilter;
                 });
                 $scope.countBy();
+                $scope.updateStatusButtonConfigs();
             }
         },
         bindingOptions: {
@@ -64,6 +66,8 @@
             });
 
         }
+
+        $scope.updateStatusButtonConfigs();
     };
 
     $scope.countBy = function (type, status) {
@@ -157,6 +161,42 @@
 
     };
 
+
+
+    var _statusBtnBaseClass = 'pill-btn';
+    $scope.statusSubmittedText = 'Submitted';
+    $scope.statusUnderReviewText = 'Under Review';
+    $scope.statusReturnedText = 'Returned';
+    $scope.statusClosedText = 'Closed';
+
+    $scope.updateStatusButtonConfigs = function () {
+        $scope.statusSubmittedText = 'Submitted (' + $scope.countBy($scope.report_type, 'Submitted') + ')';
+        $scope.statusUnderReviewText = 'Under Review (' + $scope.countBy($scope.report_type, 'Under Review') + ')';
+        $scope.statusReturnedText = 'Returned (' + $scope.countBy($scope.report_type, 'Returned') + ')';
+        $scope.statusClosedText = 'Closed (' + $scope.countBy($scope.report_type, 'Closed') + ')';
+
+        $scope.btn_status_submitted.elementAttr = { 'class': _statusBtnBaseClass + ($scope.statusFilter === 'Submitted' ? ' is-active' : '') };
+        $scope.btn_status_under_review.elementAttr = { 'class': _statusBtnBaseClass + ($scope.statusFilter === 'Under Review' ? ' is-active' : '') };
+        $scope.btn_status_returned.elementAttr = { 'class': _statusBtnBaseClass + ($scope.statusFilter === 'Returned' ? ' is-active' : '') };
+        $scope.btn_status_closed.elementAttr = { 'class': _statusBtnBaseClass + ($scope.statusFilter === 'Closed' ? ' is-active' : '') };
+    };
+
+    $scope.btn_status_submitted = {
+        bindingOptions: { text: 'statusSubmittedText' },
+        onClick: function () { $scope.setStatus('Submitted'); }
+    };
+    $scope.btn_status_under_review = {
+        bindingOptions: { text: 'statusUnderReviewText' },
+        onClick: function () { $scope.setStatus('Under Review'); }
+    };
+    $scope.btn_status_returned = {
+        bindingOptions: { text: 'statusReturnedText' },
+        onClick: function () { $scope.setStatus('Returned'); }
+    };
+    $scope.btn_status_closed = {
+        bindingOptions: { text: 'statusClosedText' },
+        onClick: function () { $scope.setStatus('Closed'); }
+    };
     ////////////////////////
 
     $scope.bind = function () {
@@ -164,6 +204,7 @@
             $scope.items = response.Data;
             $scope.dg_occurrences_ds = response.Data;
             $scope.countBy();
+            $scope.updateStatusButtonConfigs();
         });
     }
 
