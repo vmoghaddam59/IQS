@@ -75,11 +75,11 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
                 $rootScope.navigatefirstlogin();
              else {
                  if (!ceo && $rootScope.userName != 'ceo')
-                     $location.path('/apps');
+                     $location.path('/iqs/hazard/list');
                  else
                  {
                      authService.setModule(3);
-                     $location.path('/board');
+                     $location.path('/iqs/hazard/list');
                  }
              }
                
@@ -182,7 +182,7 @@ app.controller('firstLoginController', ['$scope', '$location', 'authService', 'n
             //$rootScope.app_selected
 
             //$rootScope.userName = authService.authentication.userName;
-            //$location.path('/apps');
+            //$location.path('/iqs/hazard/list');
 
 
         },
