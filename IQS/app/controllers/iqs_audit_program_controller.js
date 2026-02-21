@@ -576,6 +576,14 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
 
             columns: [
                 {
+                    caption: "Code",
+                    width: 150,
+                    calculateCellValue: function (r) {
+                        if (!r) return '—';
+                        return r.plan_code || r.code || r.planCode || '—';
+                    }
+                },
+                {
                     caption: "Title",
                     minWidth: 300,
                     cellTemplate: function (container, options) {
