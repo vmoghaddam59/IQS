@@ -450,6 +450,7 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
             stylingMode: 'filled',
             type: 'date',
             displayFormat: 'yyyy-MM',
+            height: 42,
             calendarOptions: { maxZoomLevel: 'year', minZoomLevel: 'century' },
             bindingOptions: {
                 value: 'vm.program_edit.model.period_from',
@@ -461,6 +462,7 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
             stylingMode: 'filled',
             type: 'date',
             displayFormat: 'yyyy-MM',
+            height: 42,
             calendarOptions: { maxZoomLevel: 'year', minZoomLevel: 'century' },
             bindingOptions: {
                 value: 'vm.program_edit.model.period_to',
