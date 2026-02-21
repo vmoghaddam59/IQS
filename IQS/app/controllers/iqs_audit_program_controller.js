@@ -575,10 +575,18 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
                 { dataField: "execution_mode", caption: "Mode", width: 110 },
 
                 {
-                    caption: "Actions", width: 150, alignment: "right",
+                    caption: "Actions", width: 210, alignment: "right",
                     cellTemplate: function (container, options) {
                         var p = options.data || {};
                         var wrap = $("<div>").addClass("action-icons").css({ justifyContent: "flex-end" });
+
+                        // Refs
+                        $("<div>")
+                            .addClass("icon-btn")
+                            .attr("title", "Refs")
+                            .text("Refs")
+                            .on("click", function () { vm.open_refs(p); })
+                            .appendTo(wrap);
 
                         // Open
                         $("<div>")
