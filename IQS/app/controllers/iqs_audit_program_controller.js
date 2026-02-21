@@ -36,6 +36,17 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
         function norm(s) { return (s === null || s === undefined) ? '' : ('' + s).toLowerCase(); }
         function contains(h, n) { h = norm(h); n = norm(n); return !n || h.indexOf(n) >= 0; }
 
+        function toDateValue(v) {
+            if (!v) return null;
+            if (Object.prototype.toString.call(v) === '[object Date]') return isNaN(v.getTime()) ? null : v;
+            if (typeof v === 'string') {
+                var m = v.match(/^(\d{4})-(\d{2})$/);
+                if (m) return new Date(parseInt(m[1], 10), parseInt(m[2], 10) - 1, 1);
+            }
+            var d = new Date(v);
+            return isNaN(d.getTime()) ? null : d;
+        }
+
         vm.itemFilter = function (it) {
             if (!it) return false;
 
@@ -113,6 +124,13 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
 
                 var data = res.Data || {};
                 vm.program = data.program || vm.program;
+
+                var periodFrom = toDateValue(vm.program.period_from || vm.program.periodFrom);
+                var periodTo = toDateValue(vm.program.period_to || vm.program.periodTo);
+                vm.program.period_from = periodFrom;
+                vm.program.period_to = periodTo;
+                vm.program.periodFrom = periodFrom;
+                vm.program.periodTo = periodTo;
 
                 // ⭐ فقط وقتی edit نیست مدل رو sync کن
                 if (!vm.program_edit.is_edit) {
@@ -344,8 +362,8 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
 
                 title: p.title,
                 program_type: p.program_type,
-                period_from: p.period_from,
-                period_to: p.period_to,
+                period_from: toDateValue(p.period_from || p.periodFrom || current.period_from || current.periodFrom),
+                period_to: toDateValue(p.period_to || p.periodTo || current.period_to || current.periodTo),
                 notes: (p.notes === undefined ? current.notes : p.notes), // ✅ فرق undefined با null
                 updated_by: 4011
             };
@@ -431,7 +449,8 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
         vm.dx_pd_from = {
             stylingMode: 'filled',
             type: 'date',
-            displayFormat: 'yyyy-MM-dd',
+            displayFormat: 'yyyy-MM',
+            calendarOptions: { maxZoomLevel: 'year', minZoomLevel: 'century' },
             bindingOptions: {
                 value: 'vm.program_edit.model.period_from',
                 readOnly: 'vm.is_program_readonly()'
@@ -441,7 +460,8 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
         vm.dx_pd_to = {
             stylingMode: 'filled',
             type: 'date',
-            displayFormat: 'yyyy-MM-dd',
+            displayFormat: 'yyyy-MM',
+            calendarOptions: { maxZoomLevel: 'year', minZoomLevel: 'century' },
             bindingOptions: {
                 value: 'vm.program_edit.model.period_to',
                 readOnly: 'vm.is_program_readonly()'
@@ -553,12 +573,13 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
             onInitialized: function (e) { vm.planGridInstance = e.component; },
 
             columns: [
-                { dataField: "plan_code", caption: "Code", width: 140 },
                 {
-                    dataField: "scope_title", caption: "Scope / plan",
+                    caption: "Title",
+                    minWidth: 300,
                     cellTemplate: function (container, options) {
                         var p = options.data || {};
-                        var title = (p.scope_title || "");
+                        var title = (p.scope_title || p.scopeTitle || p.title || "—");
+                        var dbTitle = (p.title || "");
                         var dept = (p.department_title || "—");
                         var period = (p.period_label || "—");
                         var priority = (p.priority || "");
@@ -567,7 +588,8 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
                         if (period && period !== '—') chips.push('<span class="mini-chip">'+period+'</span>');
                         if (priority) chips.push('<span class="mini-chip">'+priority+'</span>');
                         var html = '<div style="font-weight:700">'+title+'</div>'
-                                 + '<div style="opacity:.85;margin-top:4px">'+chips.join(' ')+'</div>';
+                                 + (dbTitle && dbTitle !== title ? '<div style="opacity:.75;margin-top:2px">DB title: '+dbTitle+'</div>' : '')
+                                 + '<div style="opacity:.85;margin-top:4px">'+chips.join(' ')+'</div>'; 
                         container.append(html);
                     }
                 },
@@ -575,10 +597,18 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
                 { dataField: "execution_mode", caption: "Mode", width: 110 },
 
                 {
-                    caption: "Actions", width: 150, alignment: "right",
+                    caption: "Actions", width: 210, alignment: "right",
                     cellTemplate: function (container, options) {
                         var p = options.data || {};
                         var wrap = $("<div>").addClass("action-icons").css({ justifyContent: "flex-end" });
+
+                        // Refs
+                        $("<div>")
+                            .addClass("icon-btn")
+                            .attr("title", "Refs")
+                            .text("Refs")
+                            .on("click", function () { vm.open_refs(p); })
+                            .appendTo(wrap);
 
                         // Open
                         $("<div>")
