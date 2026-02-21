@@ -36,6 +36,17 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
         function norm(s) { return (s === null || s === undefined) ? '' : ('' + s).toLowerCase(); }
         function contains(h, n) { h = norm(h); n = norm(n); return !n || h.indexOf(n) >= 0; }
 
+        function toDateValue(v) {
+            if (!v) return null;
+            if (Object.prototype.toString.call(v) === '[object Date]') return isNaN(v.getTime()) ? null : v;
+            if (typeof v === 'string') {
+                var m = v.match(/^(\d{4})-(\d{2})$/);
+                if (m) return new Date(parseInt(m[1], 10), parseInt(m[2], 10) - 1, 1);
+            }
+            var d = new Date(v);
+            return isNaN(d.getTime()) ? null : d;
+        }
+
         vm.itemFilter = function (it) {
             if (!it) return false;
 
@@ -113,6 +124,13 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
 
                 var data = res.Data || {};
                 vm.program = data.program || vm.program;
+
+                var periodFrom = toDateValue(vm.program.period_from || vm.program.periodFrom);
+                var periodTo = toDateValue(vm.program.period_to || vm.program.periodTo);
+                vm.program.period_from = periodFrom;
+                vm.program.period_to = periodTo;
+                vm.program.periodFrom = periodFrom;
+                vm.program.periodTo = periodTo;
 
                 // ⭐ فقط وقتی edit نیست مدل رو sync کن
                 if (!vm.program_edit.is_edit) {
@@ -344,8 +362,8 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
 
                 title: p.title,
                 program_type: p.program_type,
-                period_from: p.period_from,
-                period_to: p.period_to,
+                period_from: toDateValue(p.period_from || p.periodFrom || current.period_from || current.periodFrom),
+                period_to: toDateValue(p.period_to || p.periodTo || current.period_to || current.periodTo),
                 notes: (p.notes === undefined ? current.notes : p.notes), // ✅ فرق undefined با null
                 updated_by: 4011
             };
