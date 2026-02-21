@@ -23,8 +23,8 @@
 
 
     $scope.sb_type = {
-        showClearButton: true,
-        searchEnabled: true,
+        showClearButton: false,
+        searchEnabled: false,
         placeholder: ' ',
         valueExpr: "title",
         displayExpr: "title",

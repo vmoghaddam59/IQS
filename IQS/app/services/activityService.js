@@ -248,6 +248,46 @@ app.factory('activityService', ['$http', '$q', 'ngAuthSettings', '$rootScope', f
 
     };
 
+    //////////Safety Froms///////////
+
+    var _getReferredList = function (referreId, type, entityId) {
+        referredId = "4540";
+
+        var deferred = $q.defer();
+        $http.get(apiQA + 'api/qa/get/referred/' + referreId + '/' + type + '/' + entityId).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+            deferred.reject(Exceptions.getMessage(err));
+        })
+
+        return deferred.promise;
+    }
+
+    var _getMORById = function (Id) {
+
+        var deferred = $q.defer();
+        $http.get(apiQA + 'api/get/mor/byid/' + Id).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+            deferred.reject(Exceptions.getMessage(err));
+        })
+
+        return deferred.promise;
+    }
+
+    var _getMORCompnSpec = function () {
+
+        var deferred = $q.defer();
+        $http.get(apiQA + 'api/get/mor/compnspec').then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+            deferred.reject(Exceptions.getMessage(err));
+        })
+
+        return deferred.promise;
+    }
+
+    
 
     serviceFactory.getIRAirports = _getIRAirports;
     serviceFactory.save = _save;
@@ -273,6 +313,11 @@ app.factory('activityService', ['$http', '$q', 'ngAuthSettings', '$rootScope', f
 
     serviceFactory.save_hazard_risk = _save_hazard_risk;
     serviceFactory.list_hazard_risk = _list_hazard_risk;
+
+
+    serviceFactory.getMORById = _getMORById;
+    serviceFactory.getMORCompnSpec = _getMORCompnSpec;
+    serviceFactory.getReferredList = _getReferredList;
 
 
 

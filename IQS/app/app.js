@@ -87,70 +87,6 @@ app.config(function ($routeProvider) {
 
 });   
 
-//////var serviceBase = 'http://grfn.api.epatrin.ir/';
-//////var webBase = 'http://grfn.epatrin.ir/';
-////if (window.location.href.indexOf('fleet.flypersia.aero') != -1) {
-////    var webBase = 'http://fleet.flypersia.aero/airpocket/';
-////    var serviceBase = 'http://fleet.flypersia.aero/api.airpocket/';
-////}
-////else {
-////    //var serviceBase = 'http://apig.epapocket.ir/';
-////    var serviceBase = 'http://localhost:58908/';
-////   // var serviceBase = 'http://fleet.caspianairlines.com/api/';
-////    var webBase = 'http://localhost:30000/';
-////}
-////var serviceBase = 'http://fleet.caspianairlines.com/api/';
-
-//var serviceBaseAPI ='https://api0.apvaresh.com/';
-//var serviceBaseTRN = 'https://trn.apvaresh.com/';
-
-//var webBase = 'https://apvaresh.ir/';
-//var serviceBase ='https://apinet.apvaresh.com/';
-//var liburl = serviceBase;
-//var serviceBase2 =  'https://localhost:5001/';
-
-//var signFiles = 'https://fbpocket.ir/upload/signs/';
-
-//var comAPI='https://api.apvaresh.com/';
-//var msgUrl="https://msg.apvaresh.com/";
-//var apiLog='https://yapilog.apvaresh.com/';
-//var zlog='https://zlog.apvaresh.com/';
-//var schUrl='https://sch.apvaresh.com/';
-//var apigd='https://apigd.apvaresh.com/';
-//var netProfile='https://netprofile.apvaresh.com/';
-//var apireportflight='https://apireportflight.apvaresh.com/';
-//var apixls='https://apixls.apvaresh.com/';
-//var apiScheduling='https://varschedulingapi.airpocket.click/';
-
-//var apiExternal = 'https://xpi.airpocket.online/';
-//var airlineCode = 'vrh';
-
-//var serviceSKYBAG = 'https://sbapi.apvaresh.com/';
-//var weatherUrl='https://coreweather.varesh.click/';
-//var staticFilesSKYBAG = 'https://fbpocket.ir/Upload/';
-
-//var apimsg='https://apimsg.apvaresh.com/';
-//var apiplanning='https://apiplanning.apvaresh.com/';
-//var apilogdefault='https://var.apilogdefault.airpocket.online/';
-//var apiapsb='https://apiapsb.apvaresh.com/';
-//var apiprofile='https://apiprofile.apvaresh.com/';
-//var apiauth='https://xauth.apvaresh.com/';
-//var atcfiles='https://files.airpocket.online/varesh/atc/';
-//var apiCAO='https://apicao.apvaresh.com/';
-//var apiQA = 'https://apiqatemp.apvaresh.com/';
-//var zapiqa = 'https://apiqa.apvaresh.com/';
-//var apiQAAuthCard = 'https://apiqaauth.apvaresh.ir/';
-
-//var zscheduling='https://zscheduling.apvaresh.com/';
-//var zreportflight='https://apireportflight.apvaresh.com/';
-//var zapinet='https://zapinet.apvaresh.com/';
-//var zapiqalog = 'https://apiqalog.apvaresh.com/';
-//var zfuel='https://apifuel.apvaresh.com/';
-//    //'http://localhost:58908/';
-//    //'http://localhost:40654/';
-
-//    //'http://localhost:10707/';
-////'http://ngauthenticationapi.azurewebsites.net/';
 
 var serviceBaseAPI = 'https://pya.apiapsb.myaero.tech/';
 var serviceBaseTRN = 'https://pya.apicaox.myaero.tech/';
@@ -194,7 +130,7 @@ var apiauth = 'https://pya.apiauth.myaero.tech/';
 var atcfiles = 'https://files.airpocket.online/varesh/atc/';
 var apicao = 'https://apicao.apvaresh.com/';
 var apiCAO = 'https://apicao.apvaresh.com/';
-var apiQA = 'https://apiqatemp.apvaresh.com/';
+var apiQA = 'http://localhost:9064/';
 var zapiqa = 'https://apiqa.apvaresh.com/';
 var apiQAAuthCard = 'https://apiqaauth.apvaresh.ir/';
 

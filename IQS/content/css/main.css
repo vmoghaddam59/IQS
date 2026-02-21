@@ -126,7 +126,7 @@ body {
    Layout / Sidebar / Content
    ========================= */
 .main-layout {
-    flex: 1;
+    flex: 1 1 0;
     display: flex;
     min-height: 0;
     height: calc(100vh - 60px); /* topbar height */
@@ -480,9 +480,9 @@ label {
     }
 
 /* IMPORTANT: keep native inputs styled, but DO NOT touch DevExtreme input here */
-input[type="text"],
-input[type="date"],
-select,
+/*input[type="text"],*/
+/*input[type="date"],*/
+/*select,*/
 textarea {
     background: var(--input-bg);
     border-radius: 10px;

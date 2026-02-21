@@ -10,9 +10,12 @@
             case 8:
                 $scope.form_type_title = 'Air Safety'
                 break;
+            case 3:
+                $scope.form_type_title = 'Maintenance'
+                break;
             default:
         }
-        
+
         $scope.sideTab = 'referral';
 
         $scope.setSideTab = function (tab) {
@@ -61,7 +64,7 @@
             displayFormat: "yyyy-MM-dd HHmm",
             readOnly: true,
             interval: 15,
-           
+
             bindingOptions: {
                 value: 'entity.OccurrenceDate',
 
@@ -357,7 +360,7 @@
 
             }
         };
-        
+
         $scope.ActualWX = {
             readOnly: true,
             bindingOptions: {
@@ -448,7 +451,7 @@
 
             }
         };
-       
+
         $scope.Result = {
             bindingOptions: {
                 value: 'entity.Result',
@@ -456,7 +459,7 @@
 
             }
         };
-       
+
         $scope.OthersInfo = {
             bindingOptions: {
                 value: 'entity.OthersInfo',
@@ -499,7 +502,7 @@
 
             }
         };
-        
+
         $scope.dsAvoidingAction = [
             { value: true, title: 'YES' },
             { value: false, title: 'NO' },
@@ -516,7 +519,7 @@
 
             }
         };
-       
+
         $scope.txt_Reported = {
             hoverStateEnabled: false,
             readOnly: true,
@@ -834,7 +837,7 @@
 
             }
         };
-      
+
 
         $scope.txt_BirdType = {
             hoverStateEnabled: false,
@@ -1026,18 +1029,233 @@
             }
         }
 
-        $scope.bind = function () {
-            activityService.get_asr($scope.form_id).then(function (response) {
-                $scope.entity = response.Data.entity;
-                $scope.referred_list_ds = response.Data.follow_ups;
-                $scope.expandedRow = Enumerable.From(response.Data.follow_ups).Select('$.Id').ToArray();
-                $timeout(function () {
-                    if ($scope.referred_list_instance) {
-                        $scope.referred_list_instance.updateDimensions();
-                    }
-                }, 100);
+        //MOR
+        ///
 
-            });
+        $scope.OPTCompn = []
+
+        $scope.chkCompnSpec = function (index) {
+            $scope.componentSpecification[index].checked = !$scope.componentSpecification[index].checked;
+            $scope.entity.componentSpecificationId = $scope.componentSpecification[index].Id;
+            console.log($scope.componentSpecification);
+        }
+
+        $scope.sb_station = {
+            readOnly: true,
+            focusStateEnabled: false,
+            placeholder: '',
+            displayExpr: 'IATA',
+            valueExpr: 'Id',
+            bindingOptions: {
+                value: "entity.StationId",
+                dataSource: 'ds_station',
+            }
+        }
+
+
+        $scope.txt_OccurrenceDate = {
+            readOnly: true,
+            focusStateEnabled: false,
+            displayFormat: 'yyyy-MM-dd',
+            type: 'datetime',
+            pickerType: "rollers",
+            bindingOptions: {
+                value: 'entity.DateOccurrence',
+            }
+        }
+
+        $scope.txt_OccurrenceTime = {
+            readOnly: true,
+            focusStateEnabled: false,
+            type: 'time',
+            pickerType: "rollers",
+            displayFormat: "HH:mm",
+            bindingOptions: {
+                value: 'entity.DateOccurrence',
+            }
+        }
+        $scope.txt_acType = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.AircraftType',
+            }
+        }
+
+        $scope.txt_acReg = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.Register',
+            }
+        }
+
+        $scope.txt_atlNum = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.ATLNo',
+            }
+        }
+
+        $scope.txt_taskNum = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.TaskNo',
+            }
+        }
+
+        $scope.txt_reference = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.Reference',
+            }
+        }
+
+        $scope.txt_time = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.UTCTime',
+            }
+        }
+
+        $scope.txt_route = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.Route',
+            }
+        }
+
+        $scope.txt_fltNum = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.FlightNumber',
+            }
+        }
+
+
+
+        $scope.txt_event = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.EventDescription',
+            }
+        }
+        $scope.txt_actionTaken = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.ActionTakenDescription',
+            }
+        }
+
+        $scope.txt_name = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.EmployeeName',
+            }
+        }
+
+        $scope.txt_CAALicense = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.CAALicenceNo',
+            }
+        }
+
+        $scope.txt_authNum = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.AuthorizationNo',
+            }
+        }
+
+        $scope.nb_serialNumber = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.SerialNumber'
+            }
+        }
+
+        $scope.nb_partNumber = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.PartNumber'
+            }
+        }
+
+        $scope.sb_compn = {
+            showClearButton: false,
+            searchEnabled: false,
+            readOnly: true,
+            focusStateEnabled: false,
+            displayExpr: 'title',
+            placeholder: 'Component',
+            valueExpr: 'id',
+            bindingOptions: {
+                value: 'entity.ComponentSpecificationId',
+                dataSource: 'dsComponentSpect'
+            }
+        };
+
+        $scope.txt_comment = {
+            readOnly: true,
+            focusStateEnabled: false,
+            bindingOptions: {
+                value: 'entity.comment'
+            }
+        }
+
+
+
+        ////////////////
+        $scope.bind = function () {
+            switch ($scope.form_type) {
+                case 0:
+                    $scope.form_type_title = 'Cabin Safety'
+                    break;
+                case 8:
+                    activityService.get_asr($scope.form_id).then(function (response) {
+                        $scope.entity = response.Data.entity;
+                        $scope.referred_list_ds = response.Data.follow_ups;
+                        $scope.expandedRow = Enumerable.From(response.Data.follow_ups).Select('$.Id').ToArray();
+                        $timeout(function () {
+                            if ($scope.referred_list_instance) {
+                                $scope.referred_list_instance.updateDimensions();
+                            }
+                        }, 100);
+
+                    });
+
+                    break;
+                case 3:
+                    activityService.getMORCompnSpec().then(function (res) {
+                        $scope.dsComponentSpect = [];
+                        $.each(res.Data, function (_i, _d) {
+                            $scope.dsComponentSpect.push({ "id": _d.Id, "title": _d.Title });
+                        });
+
+                        activityService.getMORById($scope.form_id).then(function (res) {
+                            $scope.entity = res.Data;
+                        });
+
+                    });
+                    break;
+                default:
+            }
+           
+          
         }
 
         $scope.bind();

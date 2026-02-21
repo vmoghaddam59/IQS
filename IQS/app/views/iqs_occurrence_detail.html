@@ -66,509 +66,610 @@
 
 
 
-            <div>
-                <div class="page-header">
-                    <div class="page-title-block">
-                        <div class="page-title">
-                            Occurrence – {{form_id}}
-                            <span class="page-title-pill">{{form_type_title}}</span>
-                        </div>
+    <div>
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">
+                    Occurrence – {{form_id}}
+                    <span class="page-title-pill" style="margin-top: 5px">{{form_type_title}}</span>
+                </div>
 
+            </div>
+            <div class="page-actions">
+                <div dx-button="btn_back_to_occurrences" class="btn btn-ghost"></div>
+            </div>
+        </div>
+
+        <div class="flex-two-col">
+            <div id="scroll_form" dx-scroll-view="scroll_form">
+                <div ng-show="form_type == 8">
+                    <table style="width: 100%; border: 1px solid rgba(31, 41, 55, 0.9)">
+                        <tr>
+                            <td colspan="6" class="form_title" style="padding: 7px; text-align: left; font-weight: bold">
+                                TYPE OF EVENT
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <div dx-check-box="chb_IsSecurityEvent"></div></td>
+                            <td style="padding:7px;text-align:left;"> <div dx-check-box="chb_IsAirproxATC"></div></td>
+                            <td style="padding:7px;text-align:left;"> <div dx-check-box="chb_IsTCASRA"></div></td>
+                            <td style="padding:7px;text-align:left;"> <div dx-check-box="chb_IsWakeTur"></div></td>
+                            <td style="padding:7px;text-align:left;"> <div dx-check-box="chb_IsBirdStrike"></div></td>
+                            <td style="padding:7px;text-align:left;"> <div dx-check-box="chb_IsOthers"></div></td>
+                        </tr>
+                    </table>
+                    <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
+                        <!-- <tr>
+                            <td style="background-color:rgba(30, 64, 175, 0.24);padding:7px;text-align:left;font-weight:bold">
+                                Type of Event (Tick As Applicable)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:7px"><div dx-select-box="sb_EventType"> </div> </td>
+                        </tr>-->
+                        <tr>
+                            <td style="padding:7px;text-align:left;"> Date of Occurrence: </td>
+                            <td><div dx-date-box="txt_OccurrenceDate"></div></td>
+                            <td style="padding:7px; text-align:left;" colspan=2><div dx-select-box="sb_DayNightStatus" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left"> SQUAWK: </td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_squawk" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"> Fuel Jettisoned: </td>
+                            <td style="padding:7px;text-align:left;"><div dx-number-box="txt_fuel" class="center"></div></td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding: 7px;text-align:left"> ALTITUDE: </td>
+                            <td style="padding:7px;text-align:left;"><div dx-number-box="num_alt" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"></td>
+                            <td style="padding:7px;text-align:left;"></td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding: 7px;text-align:left"> Speed: </td>
+                            <td style="padding:7px;text-align:left;"><div dx-number-box="num_speed" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"> Mach No: </td>
+                            <td style="padding:7px;text-align:left;"><div dx-number-box="num_mach" class="center"></div></td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding: 7px;text-align:left"> A/C Weight:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-number-box="num_acWeight" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"></td>
+                            <td style="padding:7px;text-align:left;"></td>
+                        </tr>
+
+                    </table>
+
+                    <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
+                        <tr>
+                            <td colspan="4" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
+                                TECH LOG REF
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left"> TECH. LOG PAGE NO: </td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="num_techLogPage" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"> ITEM NO: </td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="num_item" class="center"></div></td>
+                        </tr>
+                    </table>
+
+
+                    <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
+                        <tr>
+                            <td class="form_title" style="padding:7px;text-align:left;font-weight:bold">
+                                FLIGHT PHASE
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:7px">
+                                <div dx-select-box="sb_flightPhase"></div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
+                        <tr>
+                            <td colspan="6" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
+                                LOCATION
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left;width:30px">AIRPORT:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_airport" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left;width:30px">STAND:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_stand" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left">RUNWAY:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_runway" class="center"></div></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left">GEOGRAPHICAL POSITION:</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_geoPosAlt" class="center"></div></td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_geoPosLong" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"></td>
+                        </tr>
+                    </table>
+
+                    <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
+                        <tr>
+                            <td colspan="6" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
+                                WEATHER
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left;width:30px">MET:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-select-box="sb_MET" class="center"></div>
+                            <td style="padding: 7px;text-align:left; font-weight:bold">SIG. WX:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-select-box="sb_SignificantWxType" class="center"></div></td>
+                            <td style="padding:7px;text-align:left;"><div dx-select-box="sb_SignificantWx" class="center"></div></td>
+
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left; font-weight:bold" colspan="5">ACTUAL WX:</td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding:7px;text-align:left;" colspan="5"><div dx-text-area="ActualWX"></div></td>
+                        </tr>
+                    </table>
+
+                    <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
+
+                        <tr>
+                            <td style="padding: 7px;text-align:left;width:30px" colspan="2"> RUNWAY CONDTION:</td>
+                            <td style="padding:7px;text-align:left;" colspan="3"><div dx-select-box="sb_RunwayCondition"></div></td>
+                        </tr>
+
+                    </table>
+
+                    <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
+                        <tr>
+                            <td colspan="12" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
+                                AIRCRAFT CONFIGURATION
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left;width:30px"> A/P:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_AP" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left;width:30px"> A/THR:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_ATHR" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left;width:30px"> GEAR:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_GEAR" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left;width:30px"> FLAP:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_FLAP" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left;width:30px"> SLAT:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_SLAT" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left;width:30px"> SPOILERS:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_SPOILERS" class="center"></div></td>
+
+                        </tr>
+
+                    </table>
+                    <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
+
+                        <tr>
+                            <td colspan="2" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
+                                EVENT SUMMARY
+                            </td>
+                        </tr>
+                        <tr><td style="padding:7px;text-align:left;" colspan="2"><div dx-text-area="Summary"></div></td> </tr>
+
+                    </table>
+
+                    <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
+
+                        <tr>
+                            <td colspan="2" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
+                                ACTION TAKEN, RESULT AND ANY SUBSEQUENT EVENT(S):
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-area="Result"></div></td>
+                        </tr>
+
+                    </table>
+                    <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
+
+                        <tr>
+                            <td colspan="2" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
+                                OTHER INFORMATION AND SUGGESTIONS FOR PREVENTETIVE ACTIONS:
+                            </td>
+                        </tr>
+                        <tr><td style="padding:7px;text-align:left;" colspan="2"><div dx-text-area="OthersInfo"></div></td> </tr>
+
+                    </table>
+                    <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
+
+                        <tr>
+                            <td colspan="6" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
+                                AIRMISS - ATC INCIDENT - TCAS RA
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left" colspan="2"> AIRMISS / ATC INCIDENT / TCAS RA:</td>
+                            <td style="padding:7px;text-align:left;" colspan="4"><div dx-select-box="sb_IncidentType" class="center"></div></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left"> Severity Of Risk:</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-select-box="sb_Risk" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"> Avoiding Action Taken:</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-select-box="sb_AvoidingAction" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left"> Reported to ATC:</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_Reported" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"> ATC Instruction Issued:</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_ATCInstruction" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left"> Frequency In Use:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_Frequency" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"> Heading (Deg):</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_Heading" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"> Cleared Altitude:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-number-box="txt_ClearedAltitude" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left">Minimum Vertical Separation (Ft):</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_MinVertSep" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"> Minimum Horizontal Separation (M/Nm):</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_MinHorizSep" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left">TCAS Alert:</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-select-box="sb_TCASAlert" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left">Type Of RA:</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_RAType" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left">RA Followed:</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-select-box="sb_RAFollowed" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left">Vertical Deviation (Ft):</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_VerticalDeviation" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left">Other Aircraft: Type</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_OtherAircraft" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left">Marking Colour:</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_MarkingColour" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left">Call Sign / Registration:</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_CallSign" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left">Lighting:</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_Lighting" class="center"></div></td>
+
+                        </tr>
+                    </table>
+                    <table id="tblAbove" class="asr_tbl" style="margin-top:10px">
+                        <caption style="text-align:center; color:white">VIEW FROM ABOVE</caption>
+                        <tr ng-repeat="r in rows" style="border:0px solid #eee">
+                            <td ng-repeat="c in columns" ng-click="tableAboveClicked(r , c)" ng-class="getTdClass(c,r)">
+                                <span style="font-size:11px;" ng-show="c==-100 && r!=-100">{{r}}</span>
+                                <span style="font-size:11px;" ng-show="c!=-100 && r==-100">{{c}}</span>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table id="tblAstern" class="asr_tbl" style="margin-top:10px">
+                        <caption style="text-align:center; color:white">VIEW FROM ASTERN</caption>
+                        <tr ng-repeat="r in rows" style="border:0px solid #eee">
+                            <td ng-repeat="c in columns" ng-click="tableAsternClicked(r , c)" ng-class="getTdClass(c,r)">
+                                <span style="font-size:11px;" ng-show="c==-100 && r!=-100">{{r}}</span>
+                                <span style="font-size:11px;" ng-show="c!=-100 && r==-100">{{c}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
+
+                        <tr>
+                            <td colspan="4" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
+                                WAKE TURBULENCE
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left"> Heading (Deg):</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_WTHeading" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"> Turning:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-select-box="sb_Turning" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left">Position on glide slope:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-select-box="sb_GlideSlopePos" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"> Position on extended centerline:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-select-box="sb_ExtendedCenterlinePos" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left">Change in Attitude:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-select-box="sb_AttitudeChange" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left">Deg.</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_Deg" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left">Was there buffet?</td>
+                            <td style="padding:7px;text-align:left;"><div dx-select-box="sb_IsBuffet" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left">Stick shaker?</td>
+                            <td style="padding:7px;text-align:left;"><div dx-select-box="sb_StickShaker" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left" colspan="4">What made you suspect wake turbulence?</td>
+
+                        </tr>
+                        <tr><td style="padding:7px;text-align:left;" colspan="4"><div dx-text-area="Suspect"></div></td> </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left" colspan="4">Describe any vertical acceleration</td>
+
+                        </tr>
+                        <tr><td style="padding:7px;text-align:left;" colspan="4"><div dx-text-area="Acceleration"></div></td> </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left" colspan="4">Give details of preceding A/C (Type Call Sign)</td>
+
+                        </tr>
+                        <tr><td style="padding:7px;text-align:left;" colspan="4"><div dx-text-area="Details"></div></td> </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left" colspan="2">Were you aware of other A/C before incident?</td>
+                            <td style="padding:7px;text-align:left;" colspan="2"><div dx-select-box="sb_Aware" class="center"></div></td>
+
+                        </tr>
+                    </table>
+                    <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
+
+                        <tr>
+                            <td colspan="4" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
+                                BIRD STRIKE
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left"> Heading (Deg):</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_BSHeading" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"> Turning:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-select-box="sb_BSTurning" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left">Type Of Birds:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-text-box="txt_BirdType" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left"> Time:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-select-box="sb_Time" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left">Nr. Seen:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-select-box="sb_NrSeen" class="center"></div></td>
+                            <td style="padding: 7px;text-align:left">Nr. Struck:</td>
+                            <td style="padding:7px;text-align:left;"><div dx-select-box="sb_NrStruck" class="center"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding: 7px;text-align:left" colspan="4">Describe Impact Points And Damage OverLeaf</td>
+
+                        </tr>
+                        <tr><td style="padding:7px;text-align:left;" colspan="4"><div dx-text-area="Impact"></div></td> </tr>
+
+                    </table>
+
+
+                    <div style="clear:both"></div>
+                    <table ng-show="url_sign2" style="width:100%;margin-top:10px;">
+                        <tr>
+                            <td style="padding:10px;border-bottom:1px solid #eeee;text-align:center" colspan="3">
+                                <div ng-show="url_sign2" style="text-align:center;font-size:14px;padding:0px;">The document signed and approved by</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:25%;"></td>
+                            <td style="width:50%; text-align:center;padding:10px">
+
+                                <div ng-show="url_sign2" style="text-align:center;font-size:16px;padding:5px;">{{PIC2}}</div>
+                                <div ng-show="url_sign2" style="text-align:center;font-size:16px;padding:5px;">{{signDate2}}</div>
+                                <img style="height:auto;display: block; width: 50%;margin:0 auto 0 auto" ng-show="url_sign2" ng-src="{{url_sign2}}" />
+                            </td>
+                            <td style="width:25%;"></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div ng-show="form_type == 3">
+                    <div class="visible-sm visible-md visible-lg">
+                        <table style="margin-top:10px;border: 1px solid rgba(31, 41, 55, 0.9);width:100%" class="dx-border">
+                            <tr>
+                                <td colspan="6" style=" padding:7px;text-align:left;font-weight:bold">
+                                    Id:<span style='display:inline-block;margin-left:5px;'>{{entity.FormNo}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="margin-top:10px;border: 1px solid rgba(31, 41, 55, 0.9);width:100%" class="dx-border">
+
+                            <tr>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> Date of Occurrence: </td>
+                                <td ><div dx-date-box="txt_OccurrenceDate" class="center"></div></td>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> Time Of Occurrence: </td>
+                                <td ><div dx-date-box="txt_OccurrenceTime" class="center"></div></td>
+                            </tr>
+                            <tr>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> Station: </td>
+                                <td > <div dx-select-box="sb_station" class="center"></div></td>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> A/C Register: </td>
+                                <td > <div dx-text-box="txt_acReg" class="center"></div></td>
+                            </tr>
+                            <tr>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> Aircraft Type: </td>
+                                <td > <div dx-text-box="txt_acType" class="center"></div></td>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> Flight number: </td>
+                                <td > <div dx-text-box="txt_fltNum" class="center"></div></td>
+                            </tr>
+                            <tr>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> Route: </td>
+                                <td > <div dx-text-box="txt_route" class="center"></div></td>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> ATL No. : </td>
+                                <td > <div dx-text-box="txt_atlNum" class="center"></div></td>
+                            </tr>
+                            <tr>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> Task No. : </td>
+                                <td > <div dx-text-box="txt_taskNum" class="center"></div></td>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> Reference: </td>
+                                <td > <div dx-text-box="txt_reference" class="center"></div></td>
+                            </tr>
+
+                        </table>
+
+                        <table style="margin-top:10px;border: 1px solid rgba(31, 41, 55, 0.9);width:100%" class="dx-border">
+                            <tr>
+                                <td class="titleStyle" colspan="6">
+                                    Component Specification:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> Component: </td>
+                                <td > <div dx-select-box="sb_compn" class="center"></div></td>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> Serial Number: </td>
+                                <td > <div dx-number-box="nb_serialNumber" class="center"></div></td>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> Part Number: </td>
+                                <td > <div dx-number-box="nb_partNumber" class="center"></div></td>
+                            </tr>
+                        </table>
+
+                        <table style="margin-top:10px;border: 1px solid rgba(31, 41, 55, 0.9);width:100%" class="dx-border">
+                            <tr>
+                                <td class="titleStyle">
+                                    Event
+                                </td>
+                            </tr>
+                            <tr>
+                                <td > <div dx-text-area="txt_event"></div></td>
+                            </tr>
+
+                        </table>
+
+                        <table style="margin-top:10px;border: 1px solid rgba(31, 41, 55, 0.9);width:100%" class="dx-border">
+                            <tr>
+                                <td class="titleStyle">
+                                    Corrective Action Taken Until Now:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td > <div dx-text-area="txt_actionTaken"></div></td>
+                            </tr>
+
+                        </table>
+
+                        <table style="margin-top:10px;border: 1px solid rgba(31, 41, 55, 0.9);width:100%" class="dx-border">
+                            <tr>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> Name: </td>
+                                <td > <div dx-text-box="txt_name" class="center"></div></td>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> CAA License No.: </td>
+                                <td > <div dx-text-box="txt_CAALicense" class="center"></div></td>
+                                <td  style="font-weight: bold; padding:7px;text-align:left"> Authorization No.: </td>
+                                <td > <div dx-text-box="txt_authNum" class="center"></div></td>
+                            </tr>
+                        </table>
+
+                       
                     </div>
-                    <div class="page-actions">
-                        <div dx-button="btn_back_to_occurrences" class="btn btn-ghost"></div>
+
+
+                </div>
+            </div>
+
+            <!-- RIGHT: referral, hazard link, evidence, comments -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">Workflow & links</div>
+                        <div class="card-subtitle">
+                            Referral tree, hazard linkage, evidence and comments – simplified, based on your current forms.
+                        </div>
                     </div>
                 </div>
 
-                <div class="flex-two-col">
-                    <div id="scroll_form" dx-scroll-view="scroll_form">
-                        <div ng-show="form_type == 8">
-                            <table style="width: 100%; border: 1px solid rgba(31, 41, 55, 0.9)">
-                                <tr>
-                                    <td colspan="6" class="form_title" style="padding: 7px; text-align: left; font-weight: bold">
-                                        TYPE OF EVENT
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td > <div dx-check-box="chb_IsSecurityEvent"></div></td>
-                                    <td style="padding:7px;text-align:left;"> <div dx-check-box="chb_IsAirproxATC"></div></td>
-                                    <td style="padding:7px;text-align:left;"> <div dx-check-box="chb_IsTCASRA"></div></td>
-                                    <td style="padding:7px;text-align:left;"> <div dx-check-box="chb_IsWakeTur"></div></td>
-                                    <td style="padding:7px;text-align:left;"> <div dx-check-box="chb_IsBirdStrike"></div></td>
-                                    <td style="padding:7px;text-align:left;"> <div dx-check-box="chb_IsOthers"></div></td>
-                                </tr>
-                            </table>
-                            <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
-                                <!-- <tr>
-                                    <td style="background-color:rgba(30, 64, 175, 0.24);padding:7px;text-align:left;font-weight:bold">
-                                        Type of Event (Tick As Applicable)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding:7px"><div dx-select-box="sb_EventType"> </div> </td>
-                                </tr>-->
-                                <tr>
-                                    <td style="padding:7px;text-align:left;"> Date of Occurrence: </td>
-                                    <td><div dx-date-box="txt_OccurrenceDate"></div></td>
-                                    <td style="padding:7px; text-align:left;" colspan=2><div dx-select-box="sb_DayNightStatus" class="center"></div></td>
+                <div class="tabs">
+                    <div class="tab" ng-class="{active: sideTab === 'referral'}"
+                         ng-click="setSideTab('referral')">
+                        <span class="tab-icon-dot"></span>Referral tree
+                    </div>
+                    <div class="tab" ng-class="{active: sideTab === 'hazard'}"
+                         ng-click="setSideTab('hazard')">
+                        <span class="tab-icon-dot risk-low"></span>Hazard log
+                    </div>
+                    <div class="tab" ng-class="{active: sideTab === 'evidence'}"
+                         ng-click="setSideTab('evidence')">
+                        <span class="tab-icon-dot"></span>Evidence
+                    </div>
+                    <div class="tab" ng-class="{active: sideTab === 'comments'}"
+                         ng-click="setSideTab('comments')">
+                        <span class="tab-icon-dot"></span>Comments
+                    </div>
+                </div>
 
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left"> SQUAWK: </td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_squawk" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"> Fuel Jettisoned: </td>
-                                    <td style="padding:7px;text-align:left;"><div dx-number-box="txt_fuel" class="center"></div></td>
-                                </tr>
-
-                                <tr>
-                                    <td style="padding: 7px;text-align:left"> ALTITUDE: </td>
-                                    <td style="padding:7px;text-align:left;"><div dx-number-box="num_alt" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"></td>
-                                    <td style="padding:7px;text-align:left;"></td>
-                                </tr>
-
-                                <tr>
-                                    <td style="padding: 7px;text-align:left"> Speed: </td>
-                                    <td style="padding:7px;text-align:left;"><div dx-number-box="num_speed" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"> Mach No: </td>
-                                    <td style="padding:7px;text-align:left;"><div dx-number-box="num_mach" class="center"></div></td>
-                                </tr>
-
-                                <tr>
-                                    <td style="padding: 7px;text-align:left"> A/C Weight:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-number-box="num_acWeight" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"></td>
-                                    <td style="padding:7px;text-align:left;"></td>
-                                </tr>
-
-                            </table>
-
-                            <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
-                                <tr>
-                                    <td colspan="4" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
-                                        TECH LOG REF
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left"> TECH. LOG PAGE NO: </td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="num_techLogPage" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"> ITEM NO: </td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="num_item" class="center"></div></td>
-                                </tr>
-                            </table>
-
-
-                            <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
-                                <tr>
-                                    <td class="form_title" style="padding:7px;text-align:left;font-weight:bold">
-                                        FLIGHT PHASE
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding:7px">
-                                        <div dx-select-box="sb_flightPhase"></div>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
-                                <tr>
-                                    <td colspan="6" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
-                                        LOCATION
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left;width:30px">AIRPORT:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_airport" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left;width:30px">STAND:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_stand" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left">RUNWAY:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_runway" class="center"></div></td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left">GEOGRAPHICAL POSITION:</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_geoPosAlt" class="center"></div></td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_geoPosLong" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"></td>
-                                </tr>
-                            </table>
-
-                            <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
-                                <tr>
-                                    <td colspan="6" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
-                                        WEATHER
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left;width:30px">MET:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-select-box="sb_MET" class="center"></div>
-                                    <td style="padding: 7px;text-align:left; font-weight:bold">SIG. WX:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-select-box="sb_SignificantWxType" class="center"></div></td>
-                                    <td style="padding:7px;text-align:left;"><div dx-select-box="sb_SignificantWx" class="center"></div></td>
-
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left; font-weight:bold" colspan="5">ACTUAL WX:</td>
-                                </tr>
-
-                                <tr>
-                                    <td style="padding:7px;text-align:left;" colspan="5"><div dx-text-area="ActualWX"></div></td>
-                                </tr>
-                            </table>
-
-                            <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
-
-                                <tr>
-                                    <td style="padding: 7px;text-align:left;width:30px" colspan="2"> RUNWAY CONDTION:</td>
-                                    <td style="padding:7px;text-align:left;" colspan="3"><div dx-select-box="sb_RunwayCondition"></div></td>
-                                </tr>
-
-                            </table>
-
-                            <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
-                                <tr>
-                                    <td colspan="12" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
-                                        AIRCRAFT CONFIGURATION
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left;width:30px"> A/P:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_AP" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left;width:30px"> A/THR:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_ATHR" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left;width:30px"> GEAR:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_GEAR" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left;width:30px"> FLAP:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_FLAP" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left;width:30px"> SLAT:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_SLAT" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left;width:30px"> SPOILERS:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_SPOILERS" class="center"></div></td>
-
-                                </tr>
-
-                            </table>
-                            <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
-
-                                <tr>
-                                    <td colspan="2" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
-                                        EVENT SUMMARY
-                                    </td>
-                                </tr>
-                                <tr><td style="padding:7px;text-align:left;" colspan="2"><div dx-text-area="Summary"></div></td> </tr>
-
-                            </table>
-
-                            <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
-
-                                <tr>
-                                    <td colspan="2" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
-                                        ACTION TAKEN, RESULT AND ANY SUBSEQUENT EVENT(S):
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-area="Result"></div></td>
-                                </tr>
-
-                            </table>
-                            <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
-
-                                <tr>
-                                    <td colspan="2" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
-                                        OTHER INFORMATION AND SUGGESTIONS FOR PREVENTETIVE ACTIONS:
-                                    </td>
-                                </tr>
-                                <tr><td style="padding:7px;text-align:left;" colspan="2"><div dx-text-area="OthersInfo"></div></td> </tr>
-
-                            </table>
-                            <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
-
-                                <tr>
-                                    <td colspan="6" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
-                                        AIRMISS - ATC INCIDENT - TCAS RA
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left" colspan="2"> AIRMISS / ATC INCIDENT / TCAS RA:</td>
-                                    <td style="padding:7px;text-align:left;" colspan="4"><div dx-select-box="sb_IncidentType" class="center"></div></td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left"> Severity Of Risk:</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-select-box="sb_Risk" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"> Avoiding Action Taken:</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-select-box="sb_AvoidingAction" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left"> Reported to ATC:</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_Reported" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"> ATC Instruction Issued:</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_ATCInstruction" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left"> Frequency In Use:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_Frequency" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"> Heading (Deg):</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_Heading" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"> Cleared Altitude:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-number-box="txt_ClearedAltitude" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left">Minimum Vertical Separation (Ft):</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_MinVertSep" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"> Minimum Horizontal Separation (M/Nm):</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_MinHorizSep" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left">TCAS Alert:</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-select-box="sb_TCASAlert" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left">Type Of RA:</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_RAType" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left">RA Followed:</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-select-box="sb_RAFollowed" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left">Vertical Deviation (Ft):</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_VerticalDeviation" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left">Other Aircraft: Type</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_OtherAircraft" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left">Marking Colour:</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_MarkingColour" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left">Call Sign / Registration:</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_CallSign" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left">Lighting:</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-text-box="txt_Lighting" class="center"></div></td>
-
-                                </tr>
-                            </table>
-                            <table id="tblAbove" class="asr_tbl" style="margin-top:10px">
-                                <caption style="text-align:center; color:white">VIEW FROM ABOVE</caption>
-                                <tr ng-repeat="r in rows" style="border:0px solid #eee">
-                                    <td ng-repeat="c in columns" ng-click="tableAboveClicked(r , c)" ng-class="getTdClass(c,r)">
-                                        <span style="font-size:11px;" ng-show="c==-100 && r!=-100">{{r}}</span>
-                                        <span style="font-size:11px;" ng-show="c!=-100 && r==-100">{{c}}</span>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <table id="tblAstern" class="asr_tbl" style="margin-top:10px">
-                                <caption style="text-align:center; color:white">VIEW FROM ASTERN</caption>
-                                <tr ng-repeat="r in rows" style="border:0px solid #eee">
-                                    <td ng-repeat="c in columns" ng-click="tableAsternClicked(r , c)" ng-class="getTdClass(c,r)">
-                                        <span style="font-size:11px;" ng-show="c==-100 && r!=-100">{{r}}</span>
-                                        <span style="font-size:11px;" ng-show="c!=-100 && r==-100">{{c}}</span>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
-
-                                <tr>
-                                    <td colspan="4" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
-                                        WAKE TURBULENCE
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left"> Heading (Deg):</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_WTHeading" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"> Turning:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-select-box="sb_Turning" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left">Position on glide slope:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-select-box="sb_GlideSlopePos" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"> Position on extended centerline:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-select-box="sb_ExtendedCenterlinePos" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left">Change in Attitude:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-select-box="sb_AttitudeChange" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left">Deg.</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_Deg" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left">Was there buffet?</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-select-box="sb_IsBuffet" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left">Stick shaker?</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-select-box="sb_StickShaker" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left" colspan="4">What made you suspect wake turbulence?</td>
-
-                                </tr>
-                                <tr><td style="padding:7px;text-align:left;" colspan="4"><div dx-text-area="Suspect"></div></td> </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left" colspan="4">Describe any vertical acceleration</td>
-
-                                </tr>
-                                <tr><td style="padding:7px;text-align:left;" colspan="4"><div dx-text-area="Acceleration"></div></td> </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left" colspan="4">Give details of preceding A/C (Type Call Sign)</td>
-
-                                </tr>
-                                <tr><td style="padding:7px;text-align:left;" colspan="4"><div dx-text-area="Details"></div></td> </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left" colspan="2">Were you aware of other A/C before incident?</td>
-                                    <td style="padding:7px;text-align:left;" colspan="2"><div dx-select-box="sb_Aware" class="center"></div></td>
-
-                                </tr>
-                            </table>
-                            <table style="margin-top:10px;width:100%;border: 1px solid rgba(31, 41, 55, 0.9)">
-
-                                <tr>
-                                    <td colspan="4" class="form_title" style="padding:7px;text-align:left;font-weight:bold">
-                                        BIRD STRIKE
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left"> Heading (Deg):</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_BSHeading" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"> Turning:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-select-box="sb_BSTurning" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left">Type Of Birds:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-text-box="txt_BirdType" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left"> Time:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-select-box="sb_Time" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left">Nr. Seen:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-select-box="sb_NrSeen" class="center"></div></td>
-                                    <td style="padding: 7px;text-align:left">Nr. Struck:</td>
-                                    <td style="padding:7px;text-align:left;"><div dx-select-box="sb_NrStruck" class="center"></div></td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 7px;text-align:left" colspan="4">Describe Impact Points And Damage OverLeaf</td>
-
-                                </tr>
-                                <tr><td style="padding:7px;text-align:left;" colspan="4"><div dx-text-area="Impact"></div></td> </tr>
-
-                            </table>
-
-
-                            <div style="clear:both"></div>
-                            <table ng-show="url_sign2" style="width:100%;margin-top:10px;">
-                                <tr>
-                                    <td style="padding:10px;border-bottom:1px solid #eeee;text-align:center" colspan="3">
-                                        <div ng-show="url_sign2" style="text-align:center;font-size:14px;padding:0px;">The document signed and approved by</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:25%;"></td>
-                                    <td style="width:50%; text-align:center;padding:10px">
-
-                                        <div ng-show="url_sign2" style="text-align:center;font-size:16px;padding:5px;">{{PIC2}}</div>
-                                        <div ng-show="url_sign2" style="text-align:center;font-size:16px;padding:5px;">{{signDate2}}</div>
-                                        <img style="height:auto;display: block; width: 50%;margin:0 auto 0 auto" ng-show="url_sign2" ng-src="{{url_sign2}}" />
-                                    </td>
-                                    <td style="width:25%;"></td>
-                                </tr>
-                            </table>
+                <div ng-switch="sideTab">
+                    <div ng-switch-when="referral">
+                        <div class="card-subtitle" style="margin-bottom:6px;">
+                            Demo referral tree – who has seen and handled this report.
+                        </div>
+                        <div class="table-wrapper">
+                            <div dx-tree-list="referred_list"></div>
                         </div>
                     </div>
 
-                    <!-- RIGHT: referral, hazard link, evidence, comments -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <div class="card-title">Workflow & links</div>
-                                <div class="card-subtitle">
-                                    Referral tree, hazard linkage, evidence and comments – simplified, based on your current forms.
-                                </div>
+                    <div ng-switch-when="hazard">
+                        <div class="card-subtitle" style="margin-bottom:6px;">
+                            Hazard(s) linked to this occurrence – pulled from the hazard log.
+                        </div>
+                        <div class="pill-kpi">
+                            <div class="kpi-row">
+                                <span class="kpi-dot risk-high"></span>
+                                <span>{{ item.hazardSummary || 'H-00023 Bird strike risk on approach to OIII (demo)' }}</span>
+                            </div>
+                            <div class="kpi-row">
+                                <span class="kpi-dot"></span>
+                                <span>This is where you’d navigate to the full hazard record.</span>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="tabs">
-                            <div class="tab" ng-class="{active: sideTab === 'referral'}"
-                                 ng-click="setSideTab('referral')">
-                                <span class="tab-icon-dot"></span>Referral tree
-                            </div>
-                            <div class="tab" ng-class="{active: sideTab === 'hazard'}"
-                                 ng-click="setSideTab('hazard')">
-                                <span class="tab-icon-dot risk-low"></span>Hazard log
-                            </div>
-                            <div class="tab" ng-class="{active: sideTab === 'evidence'}"
-                                 ng-click="setSideTab('evidence')">
-                                <span class="tab-icon-dot"></span>Evidence
-                            </div>
-                            <div class="tab" ng-class="{active: sideTab === 'comments'}"
-                                 ng-click="setSideTab('comments')">
-                                <span class="tab-icon-dot"></span>Comments
-                            </div>
+                    <div ng-switch-when="evidence">
+                        <div class="card-subtitle" style="margin-bottom:6px;">
+                            Key evidence and attachments (concept only in demo).
                         </div>
+                        <ul class="pill-list">
+                            <li class="pill">
+                                <span class="pill-dot"></span>
+                                Ramp CCTV snapshot – pushback start
+                            </li>
+                            <li class="pill">
+                                <span class="pill-dot"></span>
+                                Engineer damage assessment report (PDF)
+                            </li>
+                            <li class="pill">
+                                <span class="pill-dot"></span>
+                                Photos from ramp crew (JPG)
+                            </li>
+                        </ul>
+                    </div>
 
-                        <div ng-switch="sideTab">
-                            <div ng-switch-when="referral">
-                                <div class="card-subtitle" style="margin-bottom:6px;">
-                                    Demo referral tree – who has seen and handled this report.
-                                </div>
-                                <div class="table-wrapper">
-                                    <div dx-tree-list="referred_list"></div>
-                                </div>
-                            </div>
-
-                            <div ng-switch-when="hazard">
-                                <div class="card-subtitle" style="margin-bottom:6px;">
-                                    Hazard(s) linked to this occurrence – pulled from the hazard log.
-                                </div>
-                                <div class="pill-kpi">
-                                    <div class="kpi-row">
-                                        <span class="kpi-dot risk-high"></span>
-                                        <span>{{ item.hazardSummary || 'H-00023 Bird strike risk on approach to OIII (demo)' }}</span>
-                                    </div>
-                                    <div class="kpi-row">
-                                        <span class="kpi-dot"></span>
-                                        <span>This is where you’d navigate to the full hazard record.</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div ng-switch-when="evidence">
-                                <div class="card-subtitle" style="margin-bottom:6px;">
-                                    Key evidence and attachments (concept only in demo).
-                                </div>
-                                <ul class="pill-list">
-                                    <li class="pill">
-                                        <span class="pill-dot"></span>
-                                        Ramp CCTV snapshot – pushback start
-                                    </li>
-                                    <li class="pill">
-                                        <span class="pill-dot"></span>
-                                        Engineer damage assessment report (PDF)
-                                    </li>
-                                    <li class="pill">
-                                        <span class="pill-dot"></span>
-                                        Photos from ramp crew (JPG)
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div ng-switch-when="comments">
-                                <div class="form-group full">
-                                    <label><span class="field-name">Internal comments</span></label>
-                                    <textarea ng-model="item.internalComments" placeholder="Safety manager and stakeholders can leave comments, questions, decisions here."></textarea>
-                                </div>
-                            </div>
+                    <div ng-switch-when="comments">
+                        <div class="form-group full">
+                            <label><span class="field-name">Internal comments</span></label>
+                            <textarea ng-model="item.internalComments" placeholder="Safety manager and stakeholders can leave comments, questions, decisions here."></textarea>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
