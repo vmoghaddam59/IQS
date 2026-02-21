@@ -195,6 +195,17 @@ app.controller('iqs_audit_finding_controller', ['$routeParams', '$location', '$s
             bindingOptions: { value: "entity.closure_auditor_date" }
         };
 
+        $scope.getDateBoxOptions = function (modelPath) {
+            return {
+                type: "date",
+                openOnFieldClick: true,
+                showDropDownButton: true,
+                displayFormat: "yyyy-MM-dd",
+                dropDownOptions: { container: "body" },
+                bindingOptions: { value: modelPath }
+            };
+        };
+
 
         //$scope.types = [{ id: 1, name: 'T1' }, { id: 2, name: 'T2' }, { id: 3, name: 'T3' }];
         //$scope.sb_types = {
