@@ -431,7 +431,8 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
         vm.dx_pd_from = {
             stylingMode: 'filled',
             type: 'date',
-            displayFormat: 'yyyy-MM-dd',
+            displayFormat: 'yyyy-MM',
+            calendarOptions: { maxZoomLevel: 'year', minZoomLevel: 'century' },
             bindingOptions: {
                 value: 'vm.program_edit.model.period_from',
                 readOnly: 'vm.is_program_readonly()'
@@ -441,7 +442,8 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
         vm.dx_pd_to = {
             stylingMode: 'filled',
             type: 'date',
-            displayFormat: 'yyyy-MM-dd',
+            displayFormat: 'yyyy-MM',
+            calendarOptions: { maxZoomLevel: 'year', minZoomLevel: 'century' },
             bindingOptions: {
                 value: 'vm.program_edit.model.period_to',
                 readOnly: 'vm.is_program_readonly()'
@@ -553,12 +555,21 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
             onInitialized: function (e) { vm.planGridInstance = e.component; },
 
             columns: [
-                { dataField: "plan_code", caption: "Code", width: 140 },
                 {
-                    dataField: "scope_title", caption: "Scope / plan",
+                    caption: "Code",
+                    width: 150,
+                    calculateCellValue: function (r) {
+                        if (!r) return '—';
+                        return r.plan_code || r.code || r.planCode || '—';
+                    }
+                },
+                {
+                    caption: "Title",
+                    minWidth: 300,
                     cellTemplate: function (container, options) {
                         var p = options.data || {};
-                        var title = (p.scope_title || "");
+                        var title = (p.scope_title || p.scopeTitle || p.title || "—");
+                        var dbTitle = (p.title || "");
                         var dept = (p.department_title || "—");
                         var period = (p.period_label || "—");
                         var priority = (p.priority || "");
@@ -567,7 +578,8 @@ app.controller('iqs_audit_program_controller', ['$routeParams', '$location', '$s
                         if (period && period !== '—') chips.push('<span class="mini-chip">'+period+'</span>');
                         if (priority) chips.push('<span class="mini-chip">'+priority+'</span>');
                         var html = '<div style="font-weight:700">'+title+'</div>'
-                                 + '<div style="opacity:.85;margin-top:4px">'+chips.join(' ')+'</div>';
+                                 + (dbTitle && dbTitle !== title ? '<div style="opacity:.75;margin-top:2px">DB title: '+dbTitle+'</div>' : '')
+                                 + '<div style="opacity:.85;margin-top:4px">'+chips.join(' ')+'</div>'; 
                         container.append(html);
                     }
                 },

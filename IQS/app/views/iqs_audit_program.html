@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="page-subtitle">
-                            Period: {{ vm.program.periodFrom | date:'yyyy-MM-dd' }} → {{ vm.program.periodTo | date:'yyyy-MM-dd' }}
+                            Period: {{ vm.program.periodFrom | date:'yyyy-MM' }} → {{ vm.program.periodTo | date:'yyyy-MM' }}
                             <span style="margin:0 8px; color:var(--text-soft);">•</span>
                             Owner: {{ vm.program.ownerName || '—' }}
                             <span style="margin:0 8px; color:var(--text-soft);">•</span>
@@ -131,12 +131,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label><span class="field-name">Period from</span></label>
+                            <label><span class="field-name">Period (from month)</span></label>
                             <div dx-date-box="vm.dx_pd_from"></div>
                         </div>
 
                         <div class="form-group">
-                            <label><span class="field-name">Period to</span></label>
+                            <label><span class="field-name">Period (to month)</span></label>
                             <div dx-date-box="vm.dx_pd_to"></div>
                         </div>
 
